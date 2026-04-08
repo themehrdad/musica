@@ -32,6 +32,6 @@ struct AvatarView: View {
     private var initials: String {
         let parts = name.split(separator: " ")
         let letters = parts.prefix(2).compactMap(\.first)
-        return String(letters).uppercased()
+        return letters.isEmpty ? "?" : String(letters).uppercased()
     }
 }

@@ -13,9 +13,13 @@ final class DailyProgress {
         self.profile = profile
     }
 
-    static func todayString() -> String {
+    private static let dayFormatter: DateFormatter = {
         let f = DateFormatter()
         f.dateFormat = "yyyy-MM-dd"
-        return f.string(from: .now)
+        return f
+    }()
+
+    static func todayString() -> String {
+        dayFormatter.string(from: .now)
     }
 }

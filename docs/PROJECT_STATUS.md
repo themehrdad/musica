@@ -11,12 +11,12 @@ iOS piano note recognition trainer. Learners see random notes on a music staff, 
 ## Phases
 
 ### Phase 1: Project Setup + Profile Management
-**Status:** NOT STARTED
-- [ ] XcodeGen project scaffold
-- [ ] SwiftData models (Profile, DailyProgress)
-- [ ] Profile list view (grid with avatars)
-- [ ] Create profile view (name + photo picker)
-- [ ] Navigation: profile list → practice (placeholder)
+**Status:** COMPLETE
+- [x] XcodeGen project scaffold
+- [x] SwiftData models (Profile, DailyProgress)
+- [x] Profile list view (grid with avatars)
+- [x] Create profile view (name + photo picker)
+- [x] Navigation: profile list → practice (placeholder)
 
 ### Phase 2: Practice Screen + Music Notation
 **Status:** NOT STARTED
@@ -46,4 +46,4 @@ iOS piano note recognition trainer. Learners see random notes on a music staff, 
 - [ ] Final UI polish
 
 ## Current Phase
-**Waiting to start Phase 1**
+**Phase 1 complete — awaiting build verification (iOS 26.4 simulator downloading)**
