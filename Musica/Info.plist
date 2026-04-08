@@ -17,6 +17,14 @@
     <string>1.0</string>
     <key>CFBundleVersion</key>
     <string>1</string>
+    <key>UILaunchScreen</key>
+    <dict/>
+    <key>UIRequiresFullScreen</key>
+    <true/>
+    <key>UISupportedInterfaceOrientations</key>
+    <array>
+        <string>UIInterfaceOrientationPortrait</string>
+    </array>
     <key>NSMicrophoneUsageDescription</key>
     <string>Musica needs microphone access to hear the notes you play on your piano.</string>
 </dict>
