@@ -1,5 +1,6 @@
 import Foundation
 import SwiftData
+import UIKit
 
 enum PracticeState: Equatable {
     case listening
@@ -55,14 +56,18 @@ final class PracticeViewModel {
             saveTodayProgress()
 
             if completedToday == Config.dailyGoal {
+                haptic(.success)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [weak self] in
+                    UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                     self?.state = .goalReached
                 }
             } else {
+                haptic(.success)
                 advanceAfterDelay()
             }
         } else {
             state = .wrong
+            haptic(.error)
             wrongAttempts += 1
             if wrongAttempts >= Config.wrongAttemptsBeforeHint {
                 showHint = true
@@ -86,6 +91,10 @@ final class PracticeViewModel {
         state = .listening
         isProcessing = false
         nextNote()
+    }
+
+    private func haptic(_ type: UINotificationFeedbackGenerator.FeedbackType) {
+        UINotificationFeedbackGenerator().notificationOccurred(type)
     }
 
     private func advanceAfterDelay() {
