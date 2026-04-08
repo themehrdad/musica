@@ -1,11 +1,16 @@
 import SwiftUI
+import SwiftData
 
 struct PracticeView: View {
     let profile: Profile
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.modelContext) private var context
+    @State private var currentNote: MusicNote? = MusicNote.random()
+    @State private var completedToday: Int = 0
 
     var body: some View {
-        VStack(spacing: 24) {
+        VStack(spacing: 0) {
+            // Top bar: back button + profile + counter
             HStack {
                 Button { dismiss() } label: {
                     HStack(spacing: 8) {
@@ -16,26 +21,55 @@ struct PracticeView: View {
                     }
                 }
                 Spacer()
+                CounterView(completed: completedToday, goal: Config.dailyGoal)
             }
             .padding(.horizontal, 20)
             .padding(.top, 16)
 
             Spacer()
 
-            Image(systemName: "music.note")
-                .font(.system(size: 60))
-                .foregroundStyle(.secondary)
+            // Staff
+            StaffView(note: currentNote)
+                .padding(.horizontal, 8)
 
-            Text("Practice Screen")
-                .font(.title2)
-                .foregroundStyle(.secondary)
-
-            Text("Coming in Phase 2")
-                .font(.caption)
-                .foregroundStyle(.tertiary)
+            // Note name
+            if let note = currentNote {
+                Text(note.displayName)
+                    .font(.title2.weight(.semibold))
+                    .foregroundStyle(.secondary)
+                    .padding(.top, 8)
+            }
 
             Spacer()
+
+            // Mic indicator placeholder
+            Image(systemName: "mic.circle.fill")
+                .font(.system(size: 56))
+                .foregroundStyle(.blue.opacity(0.6))
+                .padding(.bottom, 8)
+
+            Text("Listening...")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+
+            // DEBUG: Next note button (removed in Phase 3)
+            Button("Next Note (Debug)") {
+                currentNote = MusicNote.random()
+            }
+            .padding()
+            .padding(.bottom, 20)
         }
         .background(Color(.systemBackground))
+        .onAppear { loadTodayProgress() }
+    }
+
+    private func loadTodayProgress() {
+        let today = DailyProgress.todayString()
+        let descriptor = FetchDescriptor<DailyProgress>(
+            predicate: #Predicate { $0.date == today }
+        )
+        let results = (try? context.fetch(descriptor)) ?? []
+        let profileID = profile.persistentModelID
+        completedToday = results.first { $0.profile?.persistentModelID == profileID }?.notesCompleted ?? 0
     }
 }

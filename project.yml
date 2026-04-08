@@ -38,6 +38,7 @@ targets:
       base:
         TEST_HOST: "$(BUILT_PRODUCTS_DIR)/Musica.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Musica"
         BUNDLE_LOADER: "$(TEST_HOST)"
+        GENERATE_INFOPLIST_FILE: YES
 
 schemes:
   Musica:
