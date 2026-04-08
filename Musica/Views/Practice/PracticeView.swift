@@ -5,7 +5,7 @@ struct PracticeView: View {
     let profile: Profile
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var context
-    @State private var currentNote: MusicNote? = MusicNote.random()
+    @State private var currentNote: MusicNote?
     @State private var completedToday: Int = 0
 
     var body: some View {
@@ -54,13 +54,16 @@ struct PracticeView: View {
 
             // DEBUG: Next note button (removed in Phase 3)
             Button("Next Note (Debug)") {
-                currentNote = MusicNote.random()
+                currentNote = MusicNote.random(beginner: profile.beginner)
             }
             .padding()
             .padding(.bottom, 20)
         }
         .background(Color(.systemBackground))
-        .onAppear { loadTodayProgress() }
+        .onAppear {
+            currentNote = MusicNote.random(beginner: profile.beginner)
+            loadTodayProgress()
+        }
     }
 
     private func loadTodayProgress() {

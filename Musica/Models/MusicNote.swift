@@ -47,8 +47,9 @@ struct MusicNote: Equatable {
         return (octave - 4) * 7 + index
     }
 
-    static func random() -> MusicNote {
-        let allNotes = (Config.noteRange).compactMap { MusicNote(midiNumber: $0) }
+    static func random(beginner: Bool = false) -> MusicNote {
+        let range = beginner ? Config.beginnerNoteRange : Config.noteRange
+        let allNotes = range.compactMap { MusicNote(midiNumber: $0) }
         return allNotes.randomElement()!
     }
 

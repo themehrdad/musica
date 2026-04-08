@@ -11,6 +11,7 @@ struct ProfileFormView: View {
     @State private var name = ""
     @State private var selectedPhoto: PhotosPickerItem?
     @State private var avatarData: Data?
+    @State private var beginner = true
 
     private var isEditing: Bool { profileToEdit != nil }
 
@@ -41,6 +42,17 @@ struct ProfileFormView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 12))
                     .padding(.horizontal, 40)
 
+                Toggle(isOn: $beginner) {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Beginner")
+                            .font(.body.weight(.medium))
+                        Text("Only notes on the staff lines")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+                .padding(.horizontal, 40)
+
                 Spacer()
             }
             .padding(.top, 40)
@@ -56,8 +68,9 @@ struct ProfileFormView: View {
                         if let profile = profileToEdit {
                             profile.name = trimmedName
                             profile.avatarData = avatarData
+                            profile.beginner = beginner
                         } else {
-                            let profile = Profile(name: trimmedName, avatarData: avatarData)
+                            let profile = Profile(name: trimmedName, avatarData: avatarData, beginner: beginner)
                             context.insert(profile)
                         }
                         dismiss()
@@ -69,6 +82,7 @@ struct ProfileFormView: View {
                 if let profile = profileToEdit {
                     name = profile.name
                     avatarData = profile.avatarData
+                    beginner = profile.beginner
                 }
             }
         }
