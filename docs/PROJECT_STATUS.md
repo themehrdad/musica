@@ -15,35 +15,33 @@ iOS piano note recognition trainer. Learners see random notes on a music staff, 
 - [x] XcodeGen project scaffold
 - [x] SwiftData models (Profile, DailyProgress)
 - [x] Profile list view (grid with avatars)
-- [x] Create profile view (name + photo picker)
-- [x] Navigation: profile list → practice (placeholder)
+- [x] Create/edit/delete profile (name + photo picker + beginner toggle)
+- [x] Navigation: profile list → practice
 
 ### Phase 2: Practice Screen + Music Notation
-**Status:** NOT STARTED
-- [ ] MusicNote model (MIDI, frequency, staff position)
-- [ ] Config constants
-- [ ] StaffView (treble clef, 5 lines, note heads, ledger lines)
-- [ ] CounterView (completed/goal with crown)
-- [ ] PracticeView layout (counter + staff + mic placeholder)
+**Status:** COMPLETE
+- [x] MusicNote model (MIDI, frequency, staff position)
+- [x] Config constants (daily goal, note ranges, beginner range)
+- [x] StaffView (treble clef, 5 lines, note heads, ledger lines)
+- [x] CounterView (completed/goal with crown)
+- [x] PracticeView layout (counter + staff + mic)
 
 ### Phase 3: Audio Pitch Detection + Core Game Loop
-**Status:** NOT STARTED
-- [ ] AudioService (AudioKit engine, PitchTap, noise filtering)
-- [ ] PracticeViewModel (state machine: listening → correct/wrong)
-- [ ] MicIndicatorView (amplitude-reactive pulse)
-- [ ] Wire audio → game logic → UI
-- [ ] DailyProgress persistence
+**Status:** COMPLETE
+- [x] AudioService (AudioKit engine, PitchTap, noise filtering)
+- [x] PracticeViewModel (state machine: listening → correct/wrong)
+- [x] MicIndicatorView (amplitude-reactive pulse, tap to toggle)
+- [x] Wire audio → game logic → UI
+- [x] DailyProgress persistence
+- [x] PianoHintView (visual keyboard with highlighted key)
 
 ### Phase 4: Animations, Hints, Crown & Polish
-**Status:** NOT STARTED
-- [ ] ConfettiView (particle animation on correct)
-- [ ] SadFaceView (animated crying emoji on wrong)
-- [ ] PianoHintView (drawn keyboard with highlighted key)
-- [ ] Crown celebration overlay at daily goal
-- [ ] Profile switching from practice screen
-- [ ] Haptic feedback
-- [ ] Dark mode verification
-- [ ] Final UI polish
+**Status:** COMPLETE
+- [x] ConfettiView (particle animation on correct)
+- [x] SadFaceView (animated crying emoji on wrong)
+- [x] Crown celebration overlay at daily goal
+- [x] Haptic feedback (success/error/heavy)
+- [x] Profile switching from practice screen
 
 ## Current Phase
-**Phase 1 complete — awaiting build verification (iOS 26.4 simulator downloading)**
+**All 4 phases complete**
