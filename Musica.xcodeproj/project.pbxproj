@@ -7,11 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3412780AE299E24E1660A6BE /* AudioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52CA48D88588952DA527E63 /* AudioService.swift */; };
 		448094AE4D40CC19660BD24B /* DailyProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75487075333F190A1F70F209 /* DailyProgress.swift */; };
-		68FE81C74B96B3FB769FF523 /* SoundpipeAudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9359448668D66A5A0E5630E2 /* SoundpipeAudioKit */; };
+		68FE81C74B96B3FB769FF523 /* AudioKitEX in Frameworks */ = {isa = PBXBuildFile; productRef = 63CED006F037579086B431A7 /* AudioKitEX */; };
 		6D8FF8ADF99D2C3AC091113C /* PracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3870A9705128AD41F8E5A507 /* PracticeView.swift */; };
 		71CC1C96965F71C37E2EC6CD /* MusicNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9EF232BE335815432AA91B /* MusicNote.swift */; };
+		775D8A0D8DCD98F2DA15431E /* SoundpipeAudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9359448668D66A5A0E5630E2 /* SoundpipeAudioKit */; };
 		800978C25ADA096F2B49A610 /* MusicaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5732B7AB308699D428C573 /* MusicaTests.swift */; };
+		8F81A70F6DF61A5FF57599D2 /* MicIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A2BE5116675C2900855DB9 /* MicIndicatorView.swift */; };
+		A602477C60645649BBCEA9B1 /* PianoHintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94B29ECE03EABB976AAD599 /* PianoHintView.swift */; };
 		B498F67FEAB7647F6DA3F75D /* CounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F690D99412AEEDA941E8EA8 /* CounterView.swift */; };
 		B7DEAEF1B6C80FDF16234312 /* MusicaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C912AFB129EE193B9A88D4 /* MusicaApp.swift */; };
 		BC8DE7594470F10E7C05869F /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2D4EECA02ADBEE1F0FFAFE /* Profile.swift */; };
@@ -19,6 +23,7 @@
 		BFF7A9038D9CED95F9AC07FC /* CreateProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128B16F4AB81A1ED6E962CAF /* CreateProfileView.swift */; };
 		C828DE1E71701AD1670549F4 /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = C70BF33E4254F5FCF381D020 /* AudioKit */; };
 		CD6E707DB7F1F82055D6D4A9 /* StaffView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E089D3CED61080EB3896FC94 /* StaffView.swift */; };
+		D86A739580DCD72C0416AB49 /* PracticeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401D55854170AC7BB387B422 /* PracticeViewModel.swift */; };
 		E5799AB828240C6E0418476C /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9A4FE7198239C1BAE79B5E /* AvatarView.swift */; };
 		EBDE7BF138DBE78731FAEA2A /* ProfileListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E40A56BE22DF436C64BD6B /* ProfileListView.swift */; };
 		F4C3E38E2A001928B0908119 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456417FCA724FF7836597821 /* Config.swift */; };
@@ -41,6 +46,7 @@
 		25B1362092BDCDA84539BBAB /* MusicaTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = MusicaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AA8771FECABB3D83ED34780 /* Musica.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Musica.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3870A9705128AD41F8E5A507 /* PracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeView.swift; sourceTree = "<group>"; };
+		401D55854170AC7BB387B422 /* PracticeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeViewModel.swift; sourceTree = "<group>"; };
 		456417FCA724FF7836597821 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		52E40A56BE22DF436C64BD6B /* ProfileListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileListView.swift; sourceTree = "<group>"; };
 		5F9A4FE7198239C1BAE79B5E /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
@@ -50,7 +56,10 @@
 		C6C912AFB129EE193B9A88D4 /* MusicaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicaApp.swift; sourceTree = "<group>"; };
 		E089D3CED61080EB3896FC94 /* StaffView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaffView.swift; sourceTree = "<group>"; };
 		F23FCC119CD1E9456F16C06E /* MusicNoteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicNoteTests.swift; sourceTree = "<group>"; };
+		F4A2BE5116675C2900855DB9 /* MicIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicIndicatorView.swift; sourceTree = "<group>"; };
 		F51949CF09546D1646A42CEC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		F52CA48D88588952DA527E63 /* AudioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioService.swift; sourceTree = "<group>"; };
+		F94B29ECE03EABB976AAD599 /* PianoHintView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PianoHintView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,7 +68,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C828DE1E71701AD1670549F4 /* AudioKit in Frameworks */,
-				68FE81C74B96B3FB769FF523 /* SoundpipeAudioKit in Frameworks */,
+				68FE81C74B96B3FB769FF523 /* AudioKitEX in Frameworks */,
+				775D8A0D8DCD98F2DA15431E /* SoundpipeAudioKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +80,8 @@
 			isa = PBXGroup;
 			children = (
 				0F690D99412AEEDA941E8EA8 /* CounterView.swift */,
+				F4A2BE5116675C2900855DB9 /* MicIndicatorView.swift */,
+				F94B29ECE03EABB976AAD599 /* PianoHintView.swift */,
 				3870A9705128AD41F8E5A507 /* PracticeView.swift */,
 				E089D3CED61080EB3896FC94 /* StaffView.swift */,
 			);
@@ -102,6 +114,7 @@
 				F51949CF09546D1646A42CEC /* Info.plist */,
 				C6C912AFB129EE193B9A88D4 /* MusicaApp.swift */,
 				98C078F399F19B2393B0DF0C /* Models */,
+				B1A6102E3D434B780D3674F0 /* Services */,
 				45528B9DEEA0775F2E3FCF57 /* Views */,
 			);
 			path = Musica;
@@ -132,6 +145,15 @@
 				1F2D4EECA02ADBEE1F0FFAFE /* Profile.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		B1A6102E3D434B780D3674F0 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				F52CA48D88588952DA527E63 /* AudioService.swift */,
+				401D55854170AC7BB387B422 /* PracticeViewModel.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		C53CFE9BD5552D8F93FFB0EB = {
@@ -169,6 +191,7 @@
 			name = Musica;
 			packageProductDependencies = (
 				C70BF33E4254F5FCF381D020 /* AudioKit */,
+				63CED006F037579086B431A7 /* AudioKitEX */,
 				9359448668D66A5A0E5630E2 /* SoundpipeAudioKit */,
 			);
 			productName = Musica;
@@ -223,6 +246,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				866EF62C0A1F762CFFE44694 /* XCRemoteSwiftPackageReference "AudioKit" */,
+				805B0E08F0F33B0B27B36031 /* XCRemoteSwiftPackageReference "AudioKitEX" */,
 				EDDC480CC78F4A121340295F /* XCRemoteSwiftPackageReference "SoundpipeAudioKit" */,
 			);
 			preferredProjectObjectVersion = 77;
@@ -241,14 +265,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3412780AE299E24E1660A6BE /* AudioService.swift in Sources */,
 				E5799AB828240C6E0418476C /* AvatarView.swift in Sources */,
 				F4C3E38E2A001928B0908119 /* Config.swift in Sources */,
 				B498F67FEAB7647F6DA3F75D /* CounterView.swift in Sources */,
 				BFF7A9038D9CED95F9AC07FC /* CreateProfileView.swift in Sources */,
 				448094AE4D40CC19660BD24B /* DailyProgress.swift in Sources */,
+				8F81A70F6DF61A5FF57599D2 /* MicIndicatorView.swift in Sources */,
 				71CC1C96965F71C37E2EC6CD /* MusicNote.swift in Sources */,
 				B7DEAEF1B6C80FDF16234312 /* MusicaApp.swift in Sources */,
+				A602477C60645649BBCEA9B1 /* PianoHintView.swift in Sources */,
 				6D8FF8ADF99D2C3AC091113C /* PracticeView.swift in Sources */,
+				D86A739580DCD72C0416AB49 /* PracticeViewModel.swift in Sources */,
 				BC8DE7594470F10E7C05869F /* Profile.swift in Sources */,
 				EBDE7BF138DBE78731FAEA2A /* ProfileListView.swift in Sources */,
 				CD6E707DB7F1F82055D6D4A9 /* StaffView.swift in Sources */,
@@ -497,6 +525,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		805B0E08F0F33B0B27B36031 /* XCRemoteSwiftPackageReference "AudioKitEX" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AudioKit/AudioKitEX";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.5.0;
+			};
+		};
 		866EF62C0A1F762CFFE44694 /* XCRemoteSwiftPackageReference "AudioKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/AudioKit/AudioKit.git";
@@ -516,6 +552,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		63CED006F037579086B431A7 /* AudioKitEX */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 805B0E08F0F33B0B27B36031 /* XCRemoteSwiftPackageReference "AudioKitEX" */;
+			productName = AudioKitEX;
+		};
 		9359448668D66A5A0E5630E2 /* SoundpipeAudioKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = EDDC480CC78F4A121340295F /* XCRemoteSwiftPackageReference "SoundpipeAudioKit" */;

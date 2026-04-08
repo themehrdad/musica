@@ -5,12 +5,16 @@ struct PracticeView: View {
     let profile: Profile
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var context
-    @State private var currentNote: MusicNote?
-    @State private var completedToday: Int = 0
+    @State private var vm: PracticeViewModel
+
+    init(profile: Profile) {
+        self.profile = profile
+        self._vm = State(initialValue: PracticeViewModel(profile: profile))
+    }
 
     var body: some View {
         VStack(spacing: 0) {
-            // Top bar: back button + profile + counter
+            // Top bar
             HStack {
                 Button { dismiss() } label: {
                     HStack(spacing: 8) {
@@ -21,7 +25,7 @@ struct PracticeView: View {
                     }
                 }
                 Spacer()
-                CounterView(completed: completedToday, goal: Config.dailyGoal)
+                CounterView(completed: vm.completedToday, goal: Config.dailyGoal)
             }
             .padding(.horizontal, 20)
             .padding(.top, 16)
@@ -29,50 +33,67 @@ struct PracticeView: View {
             Spacer()
 
             // Staff
-            StaffView(note: currentNote)
+            StaffView(note: vm.currentNote)
                 .padding(.horizontal, 8)
 
             // Note name
-            if let note = currentNote {
-                Text(note.displayName)
-                    .font(.title2.weight(.semibold))
-                    .foregroundStyle(.secondary)
-                    .padding(.top, 8)
+            Text(vm.currentNote.displayName)
+                .font(.title2.weight(.semibold))
+                .foregroundStyle(.secondary)
+                .padding(.top, 8)
+
+            // Piano hint
+            if vm.showHint {
+                PianoHintView(note: vm.currentNote)
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
+                    .padding(.top, 16)
             }
 
             Spacer()
 
-            // Mic indicator placeholder
-            Image(systemName: "mic.circle.fill")
-                .font(.system(size: 56))
-                .foregroundStyle(.blue.opacity(0.6))
-                .padding(.bottom, 8)
-
-            Text("Listening...")
-                .font(.caption)
-                .foregroundStyle(.secondary)
-
-            // DEBUG: Next note button (removed in Phase 3)
-            Button("Next Note (Debug)") {
-                currentNote = MusicNote.random(beginner: profile.beginner)
+            // Feedback text
+            Group {
+                switch vm.state {
+                case .correct:
+                    Text("Correct!")
+                        .font(.title.bold())
+                        .foregroundStyle(.green)
+                case .wrong:
+                    Text("Try again!")
+                        .font(.title.bold())
+                        .foregroundStyle(.red)
+                case .goalReached:
+                    VStack(spacing: 16) {
+                        Text("Daily Goal Reached!")
+                            .font(.title.bold())
+                        Button("Keep Practicing") { vm.continueAfterGoal() }
+                            .buttonStyle(.borderedProminent)
+                    }
+                case .listening:
+                    EmptyView()
+                }
             }
-            .padding()
-            .padding(.bottom, 20)
+            .animation(.spring(duration: 0.3), value: vm.state)
+
+            // Mic indicator
+            MicIndicatorView(
+                amplitude: vm.audioService.amplitude,
+                isListening: vm.audioService.isListening
+            )
+            .padding(.bottom, 40)
         }
         .background(Color(.systemBackground))
         .onAppear {
-            currentNote = MusicNote.random(beginner: profile.beginner)
-            loadTodayProgress()
+            vm.setup(context: context)
+            try? vm.startListening()
         }
-    }
-
-    private func loadTodayProgress() {
-        let today = DailyProgress.todayString()
-        let descriptor = FetchDescriptor<DailyProgress>(
-            predicate: #Predicate { $0.date == today }
-        )
-        let results = (try? context.fetch(descriptor)) ?? []
-        let profileID = profile.persistentModelID
-        completedToday = results.first { $0.profile?.persistentModelID == profileID }?.notesCompleted ?? 0
+        .onDisappear {
+            vm.stopListening()
+        }
+        .onChange(of: vm.audioService.detectedNote) { _, newNote in
+            if let note = newNote {
+                vm.evaluateNote(note)
+            }
+        }
     }
 }
