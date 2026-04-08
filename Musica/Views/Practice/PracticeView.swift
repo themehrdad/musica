@@ -75,11 +75,19 @@ struct PracticeView: View {
             }
             .animation(.spring(duration: 0.3), value: vm.state)
 
-            // Mic indicator
-            MicIndicatorView(
-                amplitude: vm.audioService.amplitude,
-                isListening: vm.audioService.isListening
-            )
+            // Mic indicator (tap to toggle)
+            Button {
+                if vm.audioService.isListening {
+                    vm.stopListening()
+                } else {
+                    try? vm.startListening()
+                }
+            } label: {
+                MicIndicatorView(
+                    amplitude: vm.audioService.amplitude,
+                    isListening: vm.audioService.isListening
+                )
+            }
             .padding(.bottom, 40)
         }
         .background(Color(.systemBackground))
