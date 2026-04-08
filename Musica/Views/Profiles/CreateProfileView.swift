@@ -2,12 +2,17 @@ import SwiftUI
 import SwiftData
 import PhotosUI
 
-struct CreateProfileView: View {
+struct ProfileFormView: View {
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
+
+    var profileToEdit: Profile?
+
     @State private var name = ""
     @State private var selectedPhoto: PhotosPickerItem?
     @State private var avatarData: Data?
+
+    private var isEditing: Bool { profileToEdit != nil }
 
     var body: some View {
         NavigationStack {
@@ -39,7 +44,7 @@ struct CreateProfileView: View {
                 Spacer()
             }
             .padding(.top, 40)
-            .navigationTitle("New Profile")
+            .navigationTitle(isEditing ? "Edit Profile" : "New Profile")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -48,11 +53,22 @@ struct CreateProfileView: View {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {
                         let trimmedName = name.trimmingCharacters(in: .whitespaces)
-                        let profile = Profile(name: trimmedName, avatarData: avatarData)
-                        context.insert(profile)
+                        if let profile = profileToEdit {
+                            profile.name = trimmedName
+                            profile.avatarData = avatarData
+                        } else {
+                            let profile = Profile(name: trimmedName, avatarData: avatarData)
+                            context.insert(profile)
+                        }
                         dismiss()
                     }
                     .disabled(name.trimmingCharacters(in: .whitespaces).isEmpty)
+                }
+            }
+            .onAppear {
+                if let profile = profileToEdit {
+                    name = profile.name
+                    avatarData = profile.avatarData
                 }
             }
         }

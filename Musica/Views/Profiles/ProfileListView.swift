@@ -2,8 +2,11 @@ import SwiftUI
 import SwiftData
 
 struct ProfileListView: View {
+    @Environment(\.modelContext) private var context
     @Query(sort: \Profile.createdAt) private var profiles: [Profile]
     @State private var showCreateProfile = false
+    @State private var profileToEdit: Profile?
+    @State private var profileToDelete: Profile?
     @State private var selectedProfile: Profile?
 
     var body: some View {
@@ -36,6 +39,18 @@ struct ProfileListView: View {
                                         .foregroundStyle(.primary)
                                 }
                             }
+                            .contextMenu {
+                                Button {
+                                    profileToEdit = profile
+                                } label: {
+                                    Label("Edit", systemImage: "pencil")
+                                }
+                                Button(role: .destructive) {
+                                    profileToDelete = profile
+                                } label: {
+                                    Label("Delete", systemImage: "trash")
+                                }
+                            }
                         }
                     }
                     .padding(.horizontal, 24)
@@ -57,7 +72,26 @@ struct ProfileListView: View {
                 .padding(.bottom, 40)
             }
             .sheet(isPresented: $showCreateProfile) {
-                CreateProfileView()
+                ProfileFormView()
+            }
+            .sheet(item: $profileToEdit) { profile in
+                ProfileFormView(profileToEdit: profile)
+            }
+            .alert("Delete Profile", isPresented: .init(
+                get: { profileToDelete != nil },
+                set: { if !$0 { profileToDelete = nil } }
+            )) {
+                Button("Cancel", role: .cancel) { profileToDelete = nil }
+                Button("Delete", role: .destructive) {
+                    if let profile = profileToDelete {
+                        context.delete(profile)
+                        profileToDelete = nil
+                    }
+                }
+            } message: {
+                if let profile = profileToDelete {
+                    Text("Are you sure you want to delete \(profile.name)'s profile? This will also delete all practice history.")
+                }
             }
             .fullScreenCover(item: $selectedProfile) { profile in
                 PracticeView(profile: profile)
