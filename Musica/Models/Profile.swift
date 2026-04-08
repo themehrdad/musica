@@ -6,7 +6,7 @@ final class Profile {
     var name: String
     @Attribute(.externalStorage) var avatarData: Data?
     var createdAt: Date
-    var beginner: Bool
+    var beginner: Bool = true
 
     @Relationship(deleteRule: .cascade, inverse: \DailyProgress.profile)
     var dailyProgress: [DailyProgress]? = []
