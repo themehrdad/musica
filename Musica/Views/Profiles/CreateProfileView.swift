@@ -47,7 +47,8 @@ struct CreateProfileView: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {
-                        let profile = Profile(name: name, avatarData: avatarData)
+                        let trimmedName = name.trimmingCharacters(in: .whitespaces)
+                        let profile = Profile(name: trimmedName, avatarData: avatarData)
                         context.insert(profile)
                         dismiss()
                     }
