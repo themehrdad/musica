@@ -10,33 +10,38 @@ final class AudioService {
     var amplitude: Float = 0
     var isListening = false
 
-    private var engine = AudioEngine()
+    private var engine: AudioEngine?
     private var pitchTap: PitchTap?
     private var stableCount = 0
     private var lastMidi: Int?
 
     func start() throws {
-        guard let input = engine.input else { return }
+        // Create a fresh engine each time to avoid stale state
+        let newEngine = AudioEngine()
+        guard let input = newEngine.input else { return }
 
-        // Route input through a silent fader so the engine has an output node
         let silence = Fader(input, gain: 0)
-        engine.output = silence
+        newEngine.output = silence
 
         pitchTap = PitchTap(input) { [weak self] pitchArray, ampArray in
-            // PitchTap already dispatches to DispatchQueue.main
             self?.processPitch(pitchArray[0], amplitude: ampArray[0])
         }
 
-        try engine.start()
+        try newEngine.start()
         pitchTap?.start()
+        engine = newEngine
         isListening = true
     }
 
     func stop() {
         pitchTap?.stop()
-        engine.stop()
+        pitchTap = nil
+        engine?.stop()
+        engine = nil
         isListening = false
         detectedNote = nil
+        stableCount = 0
+        lastMidi = nil
     }
 
     private func processPitch(_ frequency: Float, amplitude amp: Float) {
