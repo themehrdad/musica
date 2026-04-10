@@ -34,10 +34,19 @@ struct MusicNote: Equatable {
         440.0 * pow(2.0, Double(midiNumber - 69) / 12.0)
     }
 
-    static func fromFrequency(_ freq: Double) -> MusicNote? {
+    /// Whether this note belongs on the treble staff (C4 and above)
+    var isTreble: Bool { midiNumber >= 60 }
+
+    static func fromFrequency(_ freq: Double, clefMode: ClefMode = .treble) -> MusicNote? {
         let midi = 69 + 12 * log2(freq / 440.0)
         let rounded = Int(round(midi))
-        guard Config.noteRange.contains(rounded) else { return nil }
+        let range: ClosedRange<Int>
+        switch clefMode {
+        case .treble: range = Config.trebleNoteRange
+        case .bass: range = Config.bassNoteRange
+        case .both: range = Config.bassNoteRange.lowerBound...Config.trebleNoteRange.upperBound
+        }
+        guard range.contains(rounded) else { return nil }
         return MusicNote(midiNumber: rounded)
     }
 
@@ -47,9 +56,18 @@ struct MusicNote: Equatable {
         return (octave - 4) * 7 + index
     }
 
-    static func random(beginner: Bool = false) -> MusicNote {
-        let range = beginner ? Config.beginnerNoteRange : Config.noteRange
-        let allNotes = range.compactMap { MusicNote(midiNumber: $0) }
+    static func random(beginner: Bool = false, clefMode: ClefMode = .treble) -> MusicNote {
+        var ranges: [ClosedRange<Int>] = []
+        switch clefMode {
+        case .treble:
+            ranges.append(beginner ? Config.trebleBeginnerRange : Config.trebleNoteRange)
+        case .bass:
+            ranges.append(beginner ? Config.bassBeginnerRange : Config.bassNoteRange)
+        case .both:
+            ranges.append(beginner ? Config.trebleBeginnerRange : Config.trebleNoteRange)
+            ranges.append(beginner ? Config.bassBeginnerRange : Config.bassNoteRange)
+        }
+        let allNotes = ranges.flatMap { $0.compactMap { MusicNote(midiNumber: $0) } }
         return allNotes.randomElement()!
     }
 

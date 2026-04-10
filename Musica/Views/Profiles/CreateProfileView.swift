@@ -12,6 +12,7 @@ struct ProfileFormView: View {
     @State private var selectedPhoto: PhotosPickerItem?
     @State private var avatarData: Data?
     @State private var beginner = true
+    @State private var clefMode: ClefMode = .treble
 
     private var isEditing: Bool { profileToEdit != nil }
 
@@ -53,6 +54,18 @@ struct ProfileFormView: View {
                 }
                 .padding(.horizontal, 40)
 
+                VStack(alignment: .leading, spacing: 6) {
+                    Text("Clef")
+                        .font(.body.weight(.medium))
+                    Picker("Clef", selection: $clefMode) {
+                        ForEach(ClefMode.allCases, id: \.self) { mode in
+                            Text(mode.rawValue).tag(mode)
+                        }
+                    }
+                    .pickerStyle(.segmented)
+                }
+                .padding(.horizontal, 40)
+
                 Spacer()
             }
             .padding(.top, 40)
@@ -69,8 +82,9 @@ struct ProfileFormView: View {
                             profile.name = trimmedName
                             profile.avatarData = avatarData
                             profile.beginner = beginner
+                            profile.clefMode = clefMode
                         } else {
-                            let profile = Profile(name: trimmedName, avatarData: avatarData, beginner: beginner)
+                            let profile = Profile(name: trimmedName, avatarData: avatarData, beginner: beginner, clefMode: clefMode)
                             context.insert(profile)
                         }
                         dismiss()
@@ -83,6 +97,7 @@ struct ProfileFormView: View {
                     name = profile.name
                     avatarData = profile.avatarData
                     beginner = profile.beginner
+                    clefMode = profile.clefMode
                 }
             }
         }

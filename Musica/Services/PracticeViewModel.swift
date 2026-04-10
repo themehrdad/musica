@@ -25,11 +25,13 @@ final class PracticeViewModel {
     private var modelContext: ModelContext?
     private var isProcessing = false
     private let isBeginner: Bool
+    private let clefMode: ClefMode
 
     init(profile: Profile) {
         self.profile = profile
         self.isBeginner = profile.beginner
-        self.currentNote = MusicNote.random(beginner: profile.beginner)
+        self.clefMode = profile.clefMode
+        self.currentNote = MusicNote.random(beginner: profile.beginner, clefMode: profile.clefMode)
     }
 
     func setup(context: ModelContext) {
@@ -84,7 +86,7 @@ final class PracticeViewModel {
     }
 
     func nextNote() {
-        currentNote = MusicNote.random(beginner: isBeginner)
+        currentNote = MusicNote.random(beginner: isBeginner, clefMode: clefMode)
         state = .listening
         wrongAttempts = 0
         showNoteName = false

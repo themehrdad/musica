@@ -35,7 +35,7 @@ struct PracticeView: View {
                 Spacer()
 
                 // Staff
-                StaffView(note: vm.currentNote)
+                StaffView(note: vm.currentNote, clefMode: profile.clefMode)
                     .padding(.horizontal, 8)
 
                 // Note name (shown after 3 wrong attempts)

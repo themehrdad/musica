@@ -28,11 +28,48 @@ final class MusicNoteTests: XCTestCase {
         XCTAssertEqual(fromMidi, original)
     }
 
-    func testRandomInRange() {
+    func testRandomTrebleRange() {
         for _ in 0..<50 {
-            let note = MusicNote.random()
-            XCTAssertTrue(Config.noteRange.contains(note.midiNumber))
+            let note = MusicNote.random(clefMode: .treble)
+            XCTAssertTrue(Config.trebleNoteRange.contains(note.midiNumber))
         }
+    }
+
+    func testRandomBassRange() {
+        for _ in 0..<50 {
+            let note = MusicNote.random(clefMode: .bass)
+            XCTAssertTrue(Config.bassNoteRange.contains(note.midiNumber))
+        }
+    }
+
+    func testRandomBothRange() {
+        var sawTreble = false
+        var sawBass = false
+        for _ in 0..<200 {
+            let note = MusicNote.random(clefMode: .both)
+            if note.isTreble { sawTreble = true }
+            else { sawBass = true }
+        }
+        XCTAssertTrue(sawTreble && sawBass, "Both clef mode should produce treble and bass notes")
+    }
+
+    func testBassStaffPositions() {
+        // G2 = bottom bass line (position -10)
+        let g2 = MusicNote(name: .G, octave: 2)
+        XCTAssertEqual(g2.staffPosition, -10)
+
+        // D3 = middle bass line (position -6)
+        let d3 = MusicNote(name: .D, octave: 3)
+        XCTAssertEqual(d3.staffPosition, -6)
+
+        // A3 = top bass line (position -2)
+        let a3 = MusicNote(name: .A, octave: 3)
+        XCTAssertEqual(a3.staffPosition, -2)
+    }
+
+    func testIsTreble() {
+        XCTAssertTrue(MusicNote(name: .C, octave: 4).isTreble)   // middle C = treble
+        XCTAssertFalse(MusicNote(name: .B, octave: 3).isTreble)  // B3 = bass
     }
 
     func testStaffPositions() {
