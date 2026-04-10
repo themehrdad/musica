@@ -16,7 +16,8 @@ final class PracticeViewModel {
     var state: PracticeState = .listening
     var completedToday: Int = 0
     var wrongAttempts: Int = 0
-    var showHint: Bool = false
+    var showNoteName: Bool = false
+    var showPianoHint: Bool = false
 
     let profile: Profile
     let audioService = AudioService()
@@ -52,7 +53,8 @@ final class PracticeViewModel {
             state = .correct
             completedToday += 1
             wrongAttempts = 0
-            showHint = false
+            showNoteName = false
+            showPianoHint = false
             saveTodayProgress()
 
             if completedToday == Config.dailyGoal {
@@ -69,8 +71,10 @@ final class PracticeViewModel {
             state = .wrong
             haptic(.error)
             wrongAttempts += 1
-            if wrongAttempts >= Config.wrongAttemptsBeforeHint {
-                showHint = true
+            if wrongAttempts >= Config.wrongAttemptsBeforeHint * 2 {
+                showPianoHint = true
+            } else if wrongAttempts >= Config.wrongAttemptsBeforeHint {
+                showNoteName = true
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [weak self] in
                 self?.state = .listening
@@ -83,7 +87,8 @@ final class PracticeViewModel {
         currentNote = MusicNote.random(beginner: isBeginner)
         state = .listening
         wrongAttempts = 0
-        showHint = false
+        showNoteName = false
+        showPianoHint = false
         isProcessing = false
     }
 

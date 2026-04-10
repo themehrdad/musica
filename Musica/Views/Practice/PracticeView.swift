@@ -38,14 +38,17 @@ struct PracticeView: View {
                 StaffView(note: vm.currentNote)
                     .padding(.horizontal, 8)
 
-                // Note name
-                Text(vm.currentNote.displayName)
-                    .font(.title2.weight(.semibold))
-                    .foregroundStyle(.secondary)
-                    .padding(.top, 8)
+                // Note name (shown after 3 wrong attempts)
+                if vm.showNoteName {
+                    Text(vm.currentNote.displayName)
+                        .font(.title2.weight(.semibold))
+                        .foregroundStyle(.secondary)
+                        .padding(.top, 8)
+                        .transition(.opacity)
+                }
 
-                // Piano hint
-                if vm.showHint {
+                // Piano hint (shown after 6 wrong attempts)
+                if vm.showPianoHint {
                     PianoHintView(note: vm.currentNote)
                         .transition(.move(edge: .bottom).combined(with: .opacity))
                         .padding(.top, 16)
