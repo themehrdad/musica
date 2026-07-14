@@ -50,6 +50,7 @@ final class PracticeViewModel {
     func evaluateNote(_ detected: MusicNote) {
         guard state == .listening, !isProcessing else { return }
         isProcessing = true
+        GateLog.log("evaluate detected=\(detected.displayName) target=\(currentNote.displayName) -> \(detected.midiNumber == currentNote.midiNumber ? "CORRECT" : "WRONG")")
 
         if detected.midiNumber == currentNote.midiNumber {
             state = .correct

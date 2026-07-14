@@ -10,4 +10,20 @@ enum Config {
     static let bassNoteRange: ClosedRange<Int> = 36...59           // MIDI C2–B3
     static let bassBeginnerRange: ClosedRange<Int> = 43...57       // MIDI G2–A3 (on bass staff)
     static let naturalNotesOnly = true
+
+    // Piano-only gate: notes register only while Apple's on-device sound
+    // classifier hears a piano. Confidence thresholds are tuned for this
+    // window duration — retune them if it changes.
+    static let pianoGateEnabled = true
+    static let pianoLabels: Set<String> = ["piano", "electric_piano", "keyboard_musical"]
+    static let classifierWindowSeconds = 1.0
+    static let classifierOverlapFactor = 0.75                      // result every 0.25 s
+    static let gateOpenConfidence = 0.5
+    static let gateStayOpenConfidence = 0.25
+    static let gateHitsToOpen = 2                                  // consecutive confident results to open
+    static let gateStickySeconds: TimeInterval = 4.0               // stays open this long after last confident result
+    static let pendingNoteMaxAge: TimeInterval = 2.0               // held note expires if classifier confirms later than this
+    static let voiceVetoConfidence = 0.6                           // speech/singing at or above this...
+    static let voiceVetoPianoCeiling = 0.3                         // ...while piano below this blocks notes...
+    static let voiceVetoSeconds: TimeInterval = 0.75               // ...for this long after the result
 }

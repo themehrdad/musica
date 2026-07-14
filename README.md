@@ -7,6 +7,7 @@ A native iOS app for piano learners. Musica displays random notes on a treble st
 - **Profile management** — Create multiple learner profiles with custom avatars
 - **Music staff notation** — Treble clef with correctly positioned notes, ledger lines, and a treble clef symbol
 - **Real-time pitch detection** — Powered by AudioKit, detects piano notes through the microphone
+- **Piano-only detection** — Apple's on-device sound classifier (SoundAnalysis) runs in parallel with pitch detection; notes register only while the AI hears a piano, so voice, whistling, and other instruments are ignored
 - **Voice/noise filtering** — Amplitude threshold + pitch stability filtering ignores background chatter
 - **Beginner mode** — Restricts notes to the 5 staff lines only (no ledger lines) for new learners
 - **Daily goal tracking** — Practice counter with configurable daily target (default: 20 notes)
@@ -21,6 +22,7 @@ A native iOS app for piano learners. Musica displays random notes on a treble st
 
 - **Swift 6** / **SwiftUI** / **SwiftData**
 - **AudioKit** + **SoundpipeAudioKit** for real-time pitch detection
+- **SoundAnalysis** (Apple's built-in sound classifier) for piano-only gating
 - **XcodeGen** for project generation
 - iOS 17.0+
 
