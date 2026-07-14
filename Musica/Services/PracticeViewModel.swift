@@ -12,26 +12,27 @@ enum PracticeState: Equatable {
 @MainActor
 @Observable
 final class PracticeViewModel {
-    var currentNote: MusicNote
+    var currentCard: PracticeCard
     var state: PracticeState = .listening
     var completedToday: Int = 0
     var wrongAttempts: Int = 0
     var showNoteName: Bool = false
     var showPianoHint: Bool = false
 
+    var currentNote: MusicNote { currentCard.note }
+
     let profile: Profile
     let audioService = AudioService()
 
     private var modelContext: ModelContext?
     private var isProcessing = false
-    private let isBeginner: Bool
-    private let clefMode: ClefMode
+    private let deck: PracticeDeck
 
     init(profile: Profile) {
         self.profile = profile
-        self.isBeginner = profile.beginner
-        self.clefMode = profile.clefMode
-        self.currentNote = MusicNote.random(beginner: profile.beginner, clefMode: profile.clefMode)
+        let deck = PracticeDeck(profile: profile)
+        self.deck = deck
+        self.currentCard = deck.draw()
     }
 
     func setup(context: ModelContext) {
@@ -87,7 +88,7 @@ final class PracticeViewModel {
     }
 
     func nextNote() {
-        currentNote = MusicNote.random(beginner: isBeginner, clefMode: clefMode)
+        currentCard = deck.draw(avoiding: currentCard)
         state = .listening
         wrongAttempts = 0
         showNoteName = false

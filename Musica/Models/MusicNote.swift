@@ -19,6 +19,8 @@ struct MusicNote: Equatable {
         self.midiNumber = (octave + 1) * 12 + Self.semitoneOffset[name]!
     }
 
+    /// The app is naturals-only by construction: the semitone table above
+    /// holds only natural notes, so sharps/flats yield nil here.
     init?(midiNumber: Int) {
         self.midiNumber = midiNumber
         let octave = midiNumber / 12 - 1
@@ -54,21 +56,6 @@ struct MusicNote: Equatable {
         let noteOrder: [NoteName] = [.C, .D, .E, .F, .G, .A, .B]
         let index = noteOrder.firstIndex(of: name)!
         return (octave - 4) * 7 + index
-    }
-
-    static func random(beginner: Bool = false, clefMode: ClefMode = .treble) -> MusicNote {
-        var ranges: [ClosedRange<Int>] = []
-        switch clefMode {
-        case .treble:
-            ranges.append(beginner ? Config.trebleBeginnerRange : Config.trebleNoteRange)
-        case .bass:
-            ranges.append(beginner ? Config.bassBeginnerRange : Config.bassNoteRange)
-        case .both:
-            ranges.append(beginner ? Config.trebleBeginnerRange : Config.trebleNoteRange)
-            ranges.append(beginner ? Config.bassBeginnerRange : Config.bassNoteRange)
-        }
-        let allNotes = ranges.flatMap { $0.compactMap { MusicNote(midiNumber: $0) } }
-        return allNotes.randomElement()!
     }
 
     var displayName: String {
