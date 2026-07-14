@@ -3,6 +3,9 @@ import SwiftUI
 struct StaffView: View {
     let note: MusicNote?
     let clefMode: ClefMode
+    /// Which staff the note belongs to in `.both` mode (the hand it was dealt
+    /// for). Defaults to splitting at middle C for callers without a card.
+    var noteStaff: StaffSide?
 
     let lineSpacing: CGFloat = 12
     let noteHeadWidth: CGFloat = 16
@@ -39,7 +42,9 @@ struct StaffView: View {
                 }
 
             case .both:
-                let gap: CGFloat = lineSpacing * 4
+                // Wide enough that the deepest allowed cross-staff notes
+                // (treble E3, bass A4) stay clear of the other staff.
+                let gap: CGFloat = lineSpacing * 6
                 let trebleMidY = size.height / 2 - gap / 2 - lineSpacing * 2
                 let bassMidY = size.height / 2 + gap / 2 + lineSpacing * 2
 
@@ -59,19 +64,28 @@ struct StaffView: View {
                 }
                 context.stroke(bracePath, with: .color(.primary.opacity(0.4)), lineWidth: 2)
 
-                // Draw note on the correct staff
+                // Draw note on the staff of the hand it belongs to; tint by
+                // hand so notes between the staves stay unambiguous.
                 if let note {
-                    if note.isTreble {
+                    let onTreble = noteStaff.map { $0 == .treble } ?? note.isTreble
+                    if onTreble {
                         drawNote(context: context, note: note, staffLeft: staffLeft, staffWidth: staffWidth,
-                                 refMidY: trebleMidY, refPosition: 6, lines: trebleLines, size: size)
+                                 refMidY: trebleMidY, refPosition: 6, lines: trebleLines, size: size,
+                                 tint: .blue)
                     } else {
                         drawNote(context: context, note: note, staffLeft: staffLeft, staffWidth: staffWidth,
-                                 refMidY: bassMidY, refPosition: -6, lines: bassLines, size: size)
+                                 refMidY: bassMidY, refPosition: -6, lines: bassLines, size: size,
+                                 tint: .orange)
                     }
                 }
             }
         }
-        .frame(height: clefMode == .both ? lineSpacing * 22 : lineSpacing * 12)
+        // Tall enough that custom ranges far off the staff fit their ledger
+        // lines, but able to compress on small screens (extreme ledger lines
+        // may clip there rather than pushing the layout off screen).
+        .frame(minHeight: clefMode == .both ? lineSpacing * 18 : lineSpacing * 12,
+               idealHeight: clefMode == .both ? lineSpacing * 26 : lineSpacing * 16,
+               maxHeight: clefMode == .both ? lineSpacing * 26 : lineSpacing * 16)
     }
 
     // MARK: - Drawing helpers
@@ -102,7 +116,8 @@ struct StaffView: View {
     }
 
     private func drawNote(context: GraphicsContext, note: MusicNote, staffLeft: CGFloat, staffWidth: CGFloat,
-                          refMidY: CGFloat, refPosition: Int, lines: [Int], size: CGSize) {
+                          refMidY: CGFloat, refPosition: Int, lines: [Int], size: CGSize,
+                          tint: Color = .primary) {
         let noteX = staffLeft + staffWidth / 2 + 20
         let noteY = yPosition(for: note.staffPosition, refMidY: refMidY, refPosition: refPosition)
 
@@ -164,7 +179,7 @@ struct StaffView: View {
             width: noteHeadWidth,
             height: noteHeadHeight
         )
-        context.fill(Path(ellipseIn: noteRect), with: .color(.primary))
+        context.fill(Path(ellipseIn: noteRect), with: .color(tint))
     }
 
     private func yPosition(for staffPosition: Int, refMidY: CGFloat, refPosition: Int) -> CGFloat {

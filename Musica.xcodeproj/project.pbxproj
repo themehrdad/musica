@@ -13,13 +13,16 @@
 		448094AE4D40CC19660BD24B /* DailyProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75487075333F190A1F70F209 /* DailyProgress.swift */; };
 		563CB4CD393E68CD15140309 /* PianoGateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AB6B61878361D61657D602 /* PianoGateTests.swift */; };
 		56DCB093D516B6D97396382F /* ConfettiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EEEEF4441528A21816333F6 /* ConfettiView.swift */; };
+		5700DE8C28C0389C2A272FA1 /* KeySelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E07106E142A41A42942A389 /* KeySelectorView.swift */; };
 		68FE81C74B96B3FB769FF523 /* AudioKitEX in Frameworks */ = {isa = PBXBuildFile; productRef = 63CED006F037579086B431A7 /* AudioKitEX */; };
+		6D589FB0068F1472E92BEC1B /* PracticeDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DCA6FC50C12904FE3520B1 /* PracticeDeck.swift */; };
 		6D8FF8ADF99D2C3AC091113C /* PracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3870A9705128AD41F8E5A507 /* PracticeView.swift */; };
 		71CC1C96965F71C37E2EC6CD /* MusicNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9EF232BE335815432AA91B /* MusicNote.swift */; };
 		775D8A0D8DCD98F2DA15431E /* SoundpipeAudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9359448668D66A5A0E5630E2 /* SoundpipeAudioKit */; };
 		800978C25ADA096F2B49A610 /* MusicaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5732B7AB308699D428C573 /* MusicaTests.swift */; };
 		8F81A70F6DF61A5FF57599D2 /* MicIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A2BE5116675C2900855DB9 /* MicIndicatorView.swift */; };
 		A602477C60645649BBCEA9B1 /* PianoHintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94B29ECE03EABB976AAD599 /* PianoHintView.swift */; };
+		AC64482648CC293471364376 /* PracticeDeckTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575443303B3A96C63465B831 /* PracticeDeckTests.swift */; };
 		B19E81444F0F11DA0CDBAFD3 /* SadFaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D74ABAAD6A81F091A7A154 /* SadFaceView.swift */; };
 		B498F67FEAB7647F6DA3F75D /* CounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F690D99412AEEDA941E8EA8 /* CounterView.swift */; };
 		B7DEAEF1B6C80FDF16234312 /* MusicaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C912AFB129EE193B9A88D4 /* MusicaApp.swift */; };
@@ -53,12 +56,14 @@
 		23136E0258314060734C43E8 /* PianoSoundClassifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PianoSoundClassifier.swift; sourceTree = "<group>"; };
 		25B1362092BDCDA84539BBAB /* MusicaTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = MusicaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AA8771FECABB3D83ED34780 /* Musica.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Musica.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2E07106E142A41A42942A389 /* KeySelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeySelectorView.swift; sourceTree = "<group>"; };
 		3870A9705128AD41F8E5A507 /* PracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeView.swift; sourceTree = "<group>"; };
 		38D74ABAAD6A81F091A7A154 /* SadFaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SadFaceView.swift; sourceTree = "<group>"; };
 		401D55854170AC7BB387B422 /* PracticeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeViewModel.swift; sourceTree = "<group>"; };
 		456417FCA724FF7836597821 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		4C2AD8CA0F1E55F293016422 /* GateLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GateLog.swift; sourceTree = "<group>"; };
 		52E40A56BE22DF436C64BD6B /* ProfileListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileListView.swift; sourceTree = "<group>"; };
+		575443303B3A96C63465B831 /* PracticeDeckTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeDeckTests.swift; sourceTree = "<group>"; };
 		5EEEEF4441528A21816333F6 /* ConfettiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiView.swift; sourceTree = "<group>"; };
 		5F9A4FE7198239C1BAE79B5E /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
 		75487075333F190A1F70F209 /* DailyProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyProgress.swift; sourceTree = "<group>"; };
@@ -69,6 +74,7 @@
 		E089D3CED61080EB3896FC94 /* StaffView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaffView.swift; sourceTree = "<group>"; };
 		F23FCC119CD1E9456F16C06E /* MusicNoteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicNoteTests.swift; sourceTree = "<group>"; };
 		F4A2BE5116675C2900855DB9 /* MicIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicIndicatorView.swift; sourceTree = "<group>"; };
+		F4DCA6FC50C12904FE3520B1 /* PracticeDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeDeck.swift; sourceTree = "<group>"; };
 		F51949CF09546D1646A42CEC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		F52CA48D88588952DA527E63 /* AudioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioService.swift; sourceTree = "<group>"; };
 		F94B29ECE03EABB976AAD599 /* PianoHintView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PianoHintView.swift; sourceTree = "<group>"; };
@@ -140,6 +146,7 @@
 				BE5732B7AB308699D428C573 /* MusicaTests.swift */,
 				F23FCC119CD1E9456F16C06E /* MusicNoteTests.swift */,
 				B9AB6B61878361D61657D602 /* PianoGateTests.swift */,
+				575443303B3A96C63465B831 /* PracticeDeckTests.swift */,
 			);
 			path = MusicaTests;
 			sourceTree = "<group>";
@@ -157,6 +164,7 @@
 			children = (
 				75487075333F190A1F70F209 /* DailyProgress.swift */,
 				BF9EF232BE335815432AA91B /* MusicNote.swift */,
+				F4DCA6FC50C12904FE3520B1 /* PracticeDeck.swift */,
 				1F2D4EECA02ADBEE1F0FFAFE /* Profile.swift */,
 			);
 			path = Models;
@@ -187,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				128B16F4AB81A1ED6E962CAF /* CreateProfileView.swift */,
+				2E07106E142A41A42942A389 /* KeySelectorView.swift */,
 				52E40A56BE22DF436C64BD6B /* ProfileListView.swift */,
 			);
 			path = Profiles;
@@ -291,12 +300,14 @@
 				BFF7A9038D9CED95F9AC07FC /* CreateProfileView.swift in Sources */,
 				448094AE4D40CC19660BD24B /* DailyProgress.swift in Sources */,
 				0D71E15B393E3A741D5604F7 /* GateLog.swift in Sources */,
+				5700DE8C28C0389C2A272FA1 /* KeySelectorView.swift in Sources */,
 				8F81A70F6DF61A5FF57599D2 /* MicIndicatorView.swift in Sources */,
 				71CC1C96965F71C37E2EC6CD /* MusicNote.swift in Sources */,
 				B7DEAEF1B6C80FDF16234312 /* MusicaApp.swift in Sources */,
 				D461C22E9DE5E23F27DFBD98 /* PianoGate.swift in Sources */,
 				A602477C60645649BBCEA9B1 /* PianoHintView.swift in Sources */,
 				33D3CFD735746AB318B4AE5B /* PianoSoundClassifier.swift in Sources */,
+				6D589FB0068F1472E92BEC1B /* PracticeDeck.swift in Sources */,
 				6D8FF8ADF99D2C3AC091113C /* PracticeView.swift in Sources */,
 				D86A739580DCD72C0416AB49 /* PracticeViewModel.swift in Sources */,
 				BC8DE7594470F10E7C05869F /* Profile.swift in Sources */,
@@ -313,6 +324,7 @@
 				BD990F2EAC46AF8CDDBBFA56 /* MusicNoteTests.swift in Sources */,
 				800978C25ADA096F2B49A610 /* MusicaTests.swift in Sources */,
 				563CB4CD393E68CD15140309 /* PianoGateTests.swift in Sources */,
+				AC64482648CC293471364376 /* PracticeDeckTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

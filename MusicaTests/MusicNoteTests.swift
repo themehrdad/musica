@@ -28,31 +28,6 @@ final class MusicNoteTests: XCTestCase {
         XCTAssertEqual(fromMidi, original)
     }
 
-    func testRandomTrebleRange() {
-        for _ in 0..<50 {
-            let note = MusicNote.random(clefMode: .treble)
-            XCTAssertTrue(Config.trebleNoteRange.contains(note.midiNumber))
-        }
-    }
-
-    func testRandomBassRange() {
-        for _ in 0..<50 {
-            let note = MusicNote.random(clefMode: .bass)
-            XCTAssertTrue(Config.bassNoteRange.contains(note.midiNumber))
-        }
-    }
-
-    func testRandomBothRange() {
-        var sawTreble = false
-        var sawBass = false
-        for _ in 0..<200 {
-            let note = MusicNote.random(clefMode: .both)
-            if note.isTreble { sawTreble = true }
-            else { sawBass = true }
-        }
-        XCTAssertTrue(sawTreble && sawBass, "Both clef mode should produce treble and bass notes")
-    }
-
     func testBassStaffPositions() {
         // G2 = bottom bass line (position -10)
         let g2 = MusicNote(name: .G, octave: 2)

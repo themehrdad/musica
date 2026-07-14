@@ -13,11 +13,32 @@ struct ProfileFormView: View {
     @State private var avatarData: Data?
     @State private var beginner = true
     @State private var clefMode: ClefMode = .treble
+    @State private var trebleKeys: Set<Int> = []
+    @State private var bassKeys: Set<Int> = []
 
     private var isEditing: Bool { profileToEdit != nil }
 
+    // Grand-staff mode uses tighter key bounds (see Config).
+    private var shownTrebleRange: ClosedRange<Int> {
+        clefMode == .both ? Config.bothTrebleSelectableRange : Config.trebleSelectableRange
+    }
+    private var shownBassRange: ClosedRange<Int> {
+        clefMode == .both ? Config.bothBassSelectableRange : Config.bassSelectableRange
+    }
+
+    // The beginner toggle only drives hands without custom keys.
+    private var beginnerApplies: Bool {
+        (clefMode != .bass && trebleKeys.isEmpty) || (clefMode != .treble && bassKeys.isEmpty)
+    }
+
+    private var selectorSubtitle: String {
+        beginner ? "Using the beginner staff range — tap keys to customize"
+                 : "Using the full range — tap keys to customize"
+    }
+
     var body: some View {
         NavigationStack {
+            ScrollView {
             VStack(spacing: 32) {
                 PhotosPicker(selection: $selectedPhoto, matching: .images) {
                     AvatarView(name: name.isEmpty ? "?" : name,
@@ -47,11 +68,14 @@ struct ProfileFormView: View {
                     VStack(alignment: .leading, spacing: 2) {
                         Text("Beginner")
                             .font(.body.weight(.medium))
-                        Text("Only notes on the staff lines")
+                        Text(beginnerApplies ? "Only notes on the staff lines"
+                                             : "Not used — custom practice keys override this")
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }
                 }
+                .disabled(!beginnerApplies)
+                .opacity(beginnerApplies ? 1 : 0.5)
                 .padding(.horizontal, 40)
 
                 VStack(alignment: .leading, spacing: 6) {
@@ -66,9 +90,35 @@ struct ProfileFormView: View {
                 }
                 .padding(.horizontal, 40)
 
-                Spacer()
+                // Per-hand practice keys: like a deck of flash cards — pick
+                // the exact keys (a range, or scattered problem keys) the
+                // child should drill. Empty selection = the default range.
+                if clefMode == .treble || clefMode == .both {
+                    KeySelectorView(
+                        title: clefMode == .both ? "Right hand · Treble 𝄞" : "Practice keys · Treble 𝄞",
+                        subtitle: selectorSubtitle,
+                        selectableRange: shownTrebleRange,
+                        staffOnlyRange: Config.trebleBeginnerRange,
+                        selection: $trebleKeys
+                    )
+                    .padding(.horizontal, 24)
+                }
+
+                if clefMode == .bass || clefMode == .both {
+                    KeySelectorView(
+                        title: clefMode == .both ? "Left hand · Bass 𝄢" : "Practice keys · Bass 𝄢",
+                        subtitle: selectorSubtitle,
+                        selectableRange: shownBassRange,
+                        staffOnlyRange: Config.bassBeginnerRange,
+                        selection: $bassKeys
+                    )
+                    .padding(.horizontal, 24)
+                }
+
+                Spacer(minLength: 20)
             }
             .padding(.top, 40)
+            }
             .navigationTitle(isEditing ? "Edit Profile" : "New Profile")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -78,13 +128,23 @@ struct ProfileFormView: View {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {
                         let trimmedName = name.trimmingCharacters(in: .whitespaces)
+                        // Persist only what the parent could see at save time:
+                        // hands hidden by the clef choice save as empty, and
+                        // keys outside the shown keyboard are dropped.
+                        let savedTreble = clefMode == .bass ? []
+                            : trebleKeys.filter { shownTrebleRange.contains($0) }
+                        let savedBass = clefMode == .treble ? []
+                            : bassKeys.filter { shownBassRange.contains($0) }
                         if let profile = profileToEdit {
                             profile.name = trimmedName
                             profile.avatarData = avatarData
                             profile.beginner = beginner
                             profile.clefMode = clefMode
+                            profile.trebleKeys = Array(savedTreble)
+                            profile.bassKeys = Array(savedBass)
                         } else {
-                            let profile = Profile(name: trimmedName, avatarData: avatarData, beginner: beginner, clefMode: clefMode)
+                            let profile = Profile(name: trimmedName, avatarData: avatarData, beginner: beginner, clefMode: clefMode,
+                                                  trebleKeys: Array(savedTreble), bassKeys: Array(savedBass))
                             context.insert(profile)
                         }
                         dismiss()
@@ -98,6 +158,8 @@ struct ProfileFormView: View {
                     avatarData = profile.avatarData
                     beginner = profile.beginner
                     clefMode = profile.clefMode
+                    trebleKeys = Set(profile.trebleKeys)
+                    bassKeys = Set(profile.bassKeys)
                 }
             }
         }

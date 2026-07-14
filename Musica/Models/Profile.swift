@@ -14,6 +14,10 @@ final class Profile {
     var createdAt: Date
     var beginner: Bool = true
     var clefModeRaw: String = "treble"
+    // Custom practice keys per hand (MIDI numbers). Empty = not customized;
+    // note generation falls back to the beginner/full default ranges.
+    var trebleKeysRaw: [Int] = []
+    var bassKeysRaw: [Int] = []
 
     @Relationship(deleteRule: .cascade, inverse: \DailyProgress.profile)
     var dailyProgress: [DailyProgress]? = []
@@ -23,11 +27,30 @@ final class Profile {
         set { clefModeRaw = newValue.rawValue }
     }
 
-    init(name: String, avatarData: Data? = nil, beginner: Bool = true, clefMode: ClefMode = .treble) {
+    /// Customized right-hand keys, sorted, naturals only. Empty = use defaults.
+    var trebleKeys: [Int] {
+        get { Self.sanitized(trebleKeysRaw) }
+        set { trebleKeysRaw = Self.sanitized(newValue) }
+    }
+
+    /// Customized left-hand keys, sorted, naturals only. Empty = use defaults.
+    var bassKeys: [Int] {
+        get { Self.sanitized(bassKeysRaw) }
+        set { bassKeysRaw = Self.sanitized(newValue) }
+    }
+
+    private static func sanitized(_ keys: [Int]) -> [Int] {
+        Array(Set(keys.filter { MusicNote(midiNumber: $0) != nil })).sorted()
+    }
+
+    init(name: String, avatarData: Data? = nil, beginner: Bool = true, clefMode: ClefMode = .treble,
+         trebleKeys: [Int] = [], bassKeys: [Int] = []) {
         self.name = name
         self.avatarData = avatarData
         self.createdAt = .now
         self.beginner = beginner
         self.clefModeRaw = clefMode.rawValue
+        self.trebleKeysRaw = Self.sanitized(trebleKeys)
+        self.bassKeysRaw = Self.sanitized(bassKeys)
     }
 }
