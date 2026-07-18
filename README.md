@@ -11,6 +11,7 @@ A native iOS app for piano learners. Musica displays random notes on a treble st
 - **Voice/noise filtering** — Amplitude threshold + pitch stability filtering ignores background chatter
 - **Beginner mode** — Restricts notes to the 5 staff lines only (no ledger lines) for new learners
 - **Daily goal tracking** — Practice counter with configurable daily target (default: 20 notes)
+- **Progress calendar** — Each profile has a Progress tab with a month view showing the score for every day, a gold star on days the goal was reached, and a tap-a-day breakdown of which notes were practiced
 - **Confetti animation** — Celebratory particle burst on correct notes
 - **Sad face animation** — Animated emoji feedback on wrong notes
 - **Piano keyboard hint** — After 3 wrong attempts, shows a visual piano octave with the correct key highlighted

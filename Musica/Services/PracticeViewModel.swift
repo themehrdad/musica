@@ -59,7 +59,7 @@ final class PracticeViewModel {
             wrongAttempts = 0
             showNoteName = false
             showPianoHint = false
-            saveTodayProgress()
+            saveTodayProgress(noting: currentNote)
 
             if completedToday == Config.dailyGoal {
                 haptic(.success)
@@ -123,7 +123,7 @@ final class PracticeViewModel {
         completedToday = results.first { $0.profile?.persistentModelID == profileID }?.notesCompleted ?? 0
     }
 
-    private func saveTodayProgress() {
+    private func saveTodayProgress(noting note: MusicNote) {
         guard let context = modelContext else { return }
         let today = DailyProgress.todayString()
         let descriptor = FetchDescriptor<DailyProgress>(
@@ -133,8 +133,10 @@ final class PracticeViewModel {
         let profileID = profile.persistentModelID
         if let existing = results.first(where: { $0.profile?.persistentModelID == profileID }) {
             existing.notesCompleted = completedToday
+            existing.recordNote(note.displayName)
         } else {
             let progress = DailyProgress(date: today, notesCompleted: completedToday, profile: profile)
+            progress.recordNote(note.displayName)
             context.insert(progress)
         }
         try? context.save()

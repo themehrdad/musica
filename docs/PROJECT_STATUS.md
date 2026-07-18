@@ -52,5 +52,14 @@ iOS piano note recognition trainer. Learners see random notes on a music staff, 
 - [x] Voice/whistling/other instruments no longer register notes
 - [x] Unit tests for gate + gatekeeper logic
 
+### Phase 6: Progress Calendar
+**Status:** COMPLETE
+- [x] ProfileHomeView tabs (Practice + Progress) when opening a profile
+- [x] ProgressCalendarView month view: day number + daily score per cell
+- [x] Gold star badge on days the daily goal (20) was reached
+- [x] Tap a day to see the notes practiced that day (chips with repeat counts)
+- [x] DailyProgress.practicedNotesRaw records correct notes as they're played (older days show score only)
+- [x] MonthGrid layout math + recording flow unit tests
+
 ## Current Phase
-**All 5 phases complete**
+**All 6 phases complete**

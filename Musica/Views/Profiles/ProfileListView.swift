@@ -94,7 +94,7 @@ struct ProfileListView: View {
                 }
             }
             .fullScreenCover(item: $selectedProfile) { profile in
-                PracticeView(profile: profile)
+                ProfileHomeView(profile: profile)
             }
         }
     }

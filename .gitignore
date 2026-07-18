@@ -18,3 +18,5 @@ Package.resolved
 
 # macOS
 .DS_Store
+build-sim/
+build-device/
