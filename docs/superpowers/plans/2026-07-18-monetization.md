@@ -38,16 +38,19 @@
 
 ## Phase C: StoreKit 2 integration (the code)
 
+> Built 2026-07-18, shipped **dark** behind `Config.premiumGatingEnabled = false` — flip to `true` when the products are live in App Store Connect.
+
 Target: iOS 17+, so we use modern StoreKit 2 (async/await, on-device receipt verification — **no server needed**).
 
-- [ ] **Task C1 — `StoreService`** (`Musica/Services/StoreService.swift`): loads both `Product`s, exposes `purchase()`, `restore()`, and an `isPremium` flag driven by `Transaction.currentEntitlements`; listens to `Transaction.updates` for renewals/cancellations; caches the last known entitlement so the app works offline
-- [ ] **Task C2 — Free/premium split (decided — freemium):**
+- [x] **Task C1 — `StoreService`** (`Musica/Services/StoreService.swift`): loads both `Product`s, exposes `purchase()`, `restore()`, and an `isPremium` flag driven by `Transaction.currentEntitlements`; listens to `Transaction.updates` for renewals/cancellations; caches the last known entitlement so the app works offline
+- [x] **Task C2 — Free/premium split (decided — freemium):**
   - **Free forever:** 1 profile, treble clef, 5 notes/day — the app stays genuinely useful unpaid
   - **Premium:** unlimited notes, unlimited profiles, bass + grand staff, per-hand key selection, progress calendar with note history
-- [ ] **Task C3 — `PaywallView`**: both plans shown with yearly highlighted as the better value, price + renewal terms shown plainly (required by App Review), Subscribe button, **Restore Purchases** button (required), links to privacy policy + terms (required), parent-facing copy
-- [ ] **Task C4 — Parental gate**: simple adult-check (e.g., "type three × four") shown before the paywall
-- [ ] **Task C5 — Gating hooks**: daily-cap check in `PracticeViewModel`, profile-count check in `ProfileListView`, lock badge + blurred preview on the Progress tab when not premium
-- [ ] **Task C6 — Testing**: local `.storekit` configuration file, `StoreKitTest` unit tests for purchase/restore/expiry, sandbox-account test on a real phone
+- [x] **Task C3 — `PaywallView`**: both plans shown with yearly highlighted as the better value, price + renewal terms shown plainly (required by App Review), Subscribe button, **Restore Purchases** button (required), links to privacy policy + terms (required), parent-facing copy
+- [x] **Task C4 — Parental gate**: simple adult-check (e.g., "type three × four") shown before the paywall
+- [x] **Task C5 — Gating hooks**: daily-cap check in `PracticeViewModel`, profile-count check in `ProfileListView`, lock badge + blurred preview on the Progress tab when not premium
+- [x] **Task C6a — Local testing**: `.storekit` config wired into the run scheme, FreeTier unit tests
+- [ ] **Task C6b — Sandbox test on a real phone** (blocked until the App Store Connect products exist)
 - [ ] Unit tests green; manual sandbox purchase + cancel + restore verified on device
 
 ## Phase D: Submit and launch

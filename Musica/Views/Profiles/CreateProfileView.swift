@@ -16,6 +16,8 @@ struct ProfileFormView: View {
     @State private var trebleKeys: Set<Int> = []
     @State private var bassKeys: Set<Int> = []
     @State private var dailyGoal = Config.dailyGoal
+    @State private var showParentalGate = false
+    @State private var showPaywall = false
 
     private var isEditing: Bool { profileToEdit != nil }
 
@@ -107,8 +109,26 @@ struct ProfileFormView: View {
                         }
                     }
                     .pickerStyle(.segmented)
+                    .onChange(of: clefMode) { previous, selected in
+                        if !FreeTier.clefAllowed(selected, premium: StoreService.shared.isPremium) {
+                            clefMode = FreeTier.clefAllowed(previous, premium: StoreService.shared.isPremium)
+                                ? previous : .treble
+                            showParentalGate = true
+                        }
+                    }
+                    if FreeTier.limited(premium: StoreService.shared.isPremium) {
+                        Text("Bass and grand staff are part of Premium")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
                 }
                 .padding(.horizontal, 40)
+                .sheet(isPresented: $showParentalGate) {
+                    ParentalGateView { showPaywall = true }
+                }
+                .sheet(isPresented: $showPaywall) {
+                    PaywallView()
+                }
 
                 // Per-hand practice keys: like a deck of flash cards — pick
                 // the exact keys (a range, or scattered problem keys) the

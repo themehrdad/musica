@@ -1,6 +1,19 @@
 import Foundation
 
 enum Config {
+    // MARK: Premium subscription
+    // Master switch for the freemium gates. OFF until the App Store products
+    // are live — with it off the whole app behaves exactly as before, so
+    // family devices lose nothing when this build ships.
+    static let premiumGatingEnabled = false
+    static let monthlyProductID = "com.musica.app.premium.monthly"
+    static let yearlyProductID = "com.musica.app.premium.yearly"
+    static let premiumProductIDs = [monthlyProductID, yearlyProductID]
+    static let freeProfileLimit = 1
+    static let freeDailyNoteLimit = 5
+    static let privacyPolicyURL = URL(string: "https://themehrdad.github.io/musica/privacy.html")!
+    static let termsOfUseURL = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!
+
     static let dailyGoal = 20
     static let wrongAttemptsBeforeHint = 3
     static let pitchAmplitudeThreshold: Float = 0.05

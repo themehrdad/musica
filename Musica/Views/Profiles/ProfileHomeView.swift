@@ -12,10 +12,16 @@ struct ProfileHomeView: View {
                     Label("Practice", systemImage: "music.note")
                 }
 
-            ProgressCalendarView(profile: profile)
-                .tabItem {
-                    Label("Progress", systemImage: "calendar")
+            Group {
+                if FreeTier.limited(premium: StoreService.shared.isPremium) {
+                    LockedProgressView()
+                } else {
+                    ProgressCalendarView(profile: profile)
                 }
+            }
+            .tabItem {
+                Label("Progress", systemImage: "calendar")
+            }
         }
     }
 }

@@ -89,6 +89,12 @@ struct PracticeView: View {
                 goalReachedOverlay
                     .transition(.scale.combined(with: .opacity))
             }
+
+            if !FreeTier.canPracticeMore(completedToday: vm.completedToday,
+                                         premium: StoreService.shared.isPremium) {
+                FreeLimitReachedView()
+                    .transition(.opacity)
+            }
         }
         .animation(.spring(duration: 0.3), value: vm.state)
         .background(Color(.systemBackground))

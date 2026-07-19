@@ -23,6 +23,7 @@ targets:
         INFOPLIST_FILE: Musica/Info.plist
         PRODUCT_BUNDLE_IDENTIFIER: com.musica.app
         TARGETED_DEVICE_FAMILY: "1,2"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
     dependencies:
       - package: AudioKit
       - package: AudioKitEX
@@ -48,6 +49,7 @@ schemes:
         Musica: all
     run:
       config: Debug
+      storeKitConfiguration: Musica.storekit
     test:
       config: Debug
       targets:
