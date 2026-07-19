@@ -14,6 +14,9 @@ final class Profile {
     var createdAt: Date
     var beginner: Bool = true
     var clefModeRaw: String = "treble"
+    // Notes to practice per day. Also stamped into each day's DailyProgress
+    // so past stars keep the goal that applied at the time.
+    var dailyGoal: Int = Config.dailyGoal
     // Custom practice keys per hand (MIDI numbers). Empty = not customized;
     // note generation falls back to the beginner/full default ranges.
     var trebleKeysRaw: [Int] = []
@@ -44,7 +47,7 @@ final class Profile {
     }
 
     init(name: String, avatarData: Data? = nil, beginner: Bool = true, clefMode: ClefMode = .treble,
-         trebleKeys: [Int] = [], bassKeys: [Int] = []) {
+         trebleKeys: [Int] = [], bassKeys: [Int] = [], dailyGoal: Int = Config.dailyGoal) {
         self.name = name
         self.avatarData = avatarData
         self.createdAt = .now
@@ -52,5 +55,6 @@ final class Profile {
         self.clefModeRaw = clefMode.rawValue
         self.trebleKeysRaw = Self.sanitized(trebleKeys)
         self.bassKeysRaw = Self.sanitized(bassKeys)
+        self.dailyGoal = max(1, dailyGoal)
     }
 }
