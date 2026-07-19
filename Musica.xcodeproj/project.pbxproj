@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0D71E15B393E3A741D5604F7 /* GateLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2AD8CA0F1E55F293016422 /* GateLog.swift */; };
+		21905C089E17516B0A52B5E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0004A5895E72D3817288790D /* Assets.xcassets */; };
 		33D3CFD735746AB318B4AE5B /* PianoSoundClassifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23136E0258314060734C43E8 /* PianoSoundClassifier.swift */; };
 		3412780AE299E24E1660A6BE /* AudioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52CA48D88588952DA527E63 /* AudioService.swift */; };
 		448094AE4D40CC19660BD24B /* DailyProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75487075333F190A1F70F209 /* DailyProgress.swift */; };
@@ -54,6 +55,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0004A5895E72D3817288790D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0F690D99412AEEDA941E8EA8 /* CounterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterView.swift; sourceTree = "<group>"; };
 		128B16F4AB81A1ED6E962CAF /* CreateProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProfileView.swift; sourceTree = "<group>"; };
 		1A6AF936B4630DD338F99769 /* PianoGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PianoGate.swift; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 		71522F049704A0615A96FB11 /* Musica */ = {
 			isa = PBXGroup;
 			children = (
+				0004A5895E72D3817288790D /* Assets.xcassets */,
 				456417FCA724FF7836597821 /* Config.swift */,
 				F51949CF09546D1646A42CEC /* Info.plist */,
 				C6C912AFB129EE193B9A88D4 /* MusicaApp.swift */,
@@ -232,6 +235,7 @@
 			buildConfigurationList = A1E718D24ABCF98C6F51D3C2 /* Build configuration list for PBXNativeTarget "Musica" */;
 			buildPhases = (
 				81F029100FA93382EAE27810 /* Sources */,
+				40CEF127EB355A72555FC9A5 /* Resources */,
 				A8958EB57DFB674C67B804F5 /* Frameworks */,
 			);
 			buildRules = (
@@ -309,6 +313,17 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		40CEF127EB355A72555FC9A5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				21905C089E17516B0A52B5E2 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		81F029100FA93382EAE27810 /* Sources */ = {
