@@ -45,6 +45,7 @@
 		D4A90CAA3C59E0628F8A6EE5 /* PremiumLocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72599C6792DA9B32252C288E /* PremiumLocks.swift */; };
 		D86A739580DCD72C0416AB49 /* PracticeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401D55854170AC7BB387B422 /* PracticeViewModel.swift */; };
 		E5799AB828240C6E0418476C /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9A4FE7198239C1BAE79B5E /* AvatarView.swift */; };
+		E835CC6A4E378A79EF2B6D73 /* DemoScreens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5A21ED19382C188930239E /* DemoScreens.swift */; };
 		EBDE7BF138DBE78731FAEA2A /* ProfileListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E40A56BE22DF436C64BD6B /* ProfileListView.swift */; };
 		F4C3E38E2A001928B0908119 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456417FCA724FF7836597821 /* Config.swift */; };
 		F711332375B45E365B5686CD /* FreeTierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6933B8FE1A601A7FEC5708AD /* FreeTierTests.swift */; };
@@ -88,6 +89,7 @@
 		6933B8FE1A601A7FEC5708AD /* FreeTierTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeTierTests.swift; sourceTree = "<group>"; };
 		72599C6792DA9B32252C288E /* PremiumLocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumLocks.swift; sourceTree = "<group>"; };
 		75487075333F190A1F70F209 /* DailyProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyProgress.swift; sourceTree = "<group>"; };
+		7C5A21ED19382C188930239E /* DemoScreens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoScreens.swift; sourceTree = "<group>"; };
 		A6E8E2ADEB7619B0A3B8F9E3 /* MonthGridTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthGridTests.swift; sourceTree = "<group>"; };
 		B7C346E91BD9C10856A2B219 /* DailyProgressTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyProgressTests.swift; sourceTree = "<group>"; };
 		B9AB6B61878361D61657D602 /* PianoGateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PianoGateTests.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 			children = (
 				0004A5895E72D3817288790D /* Assets.xcassets */,
 				456417FCA724FF7836597821 /* Config.swift */,
+				7C5A21ED19382C188930239E /* DemoScreens.swift */,
 				F51949CF09546D1646A42CEC /* Info.plist */,
 				C6C912AFB129EE193B9A88D4 /* MusicaApp.swift */,
 				98C078F399F19B2393B0DF0C /* Models */,
@@ -363,6 +366,7 @@
 				B498F67FEAB7647F6DA3F75D /* CounterView.swift in Sources */,
 				BFF7A9038D9CED95F9AC07FC /* CreateProfileView.swift in Sources */,
 				448094AE4D40CC19660BD24B /* DailyProgress.swift in Sources */,
+				E835CC6A4E378A79EF2B6D73 /* DemoScreens.swift in Sources */,
 				71FAC29C490DD3E83E5EBFDD /* FreeTier.swift in Sources */,
 				0D71E15B393E3A741D5604F7 /* GateLog.swift in Sources */,
 				5700DE8C28C0389C2A272FA1 /* KeySelectorView.swift in Sources */,
