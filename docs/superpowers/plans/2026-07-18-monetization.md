@@ -22,9 +22,9 @@
 - [ ] Enroll in the **App Store Small Business Program** (15% instead of 30%)
 - [ ] Create the App Store Connect app record for `com.musica.app`
 - [x] Host a simple **privacy policy** page ("no data collected, everything on-device") + support page — live at https://themehrdad.github.io/musica/privacy.html and https://themehrdad.github.io/musica/support.html (gh-pages branch)
-- [ ] Design a proper **app icon** (we currently ship without a real one)
-- [ ] Screenshots for 6.9" and 6.5" iPhones (practice screen, progress calendar, key selector)
-- [ ] Write the App Store description; complete the **age rating** questionnaire and **privacy nutrition label** (nothing collected)
+- [x] Design a proper **app icon** — kawaii piano artwork in the asset catalog (PR #5)
+- [x] Screenshots for 6.9" iPhones — four shots in `docs/app-store/screenshots/` (practice, progress calendar, grand staff, profiles) via the DEBUG `-demo-screen` mode (PR #5)
+- [x] Write the App Store description; **age rating** + **privacy nutrition label** answers drafted in `docs/app-store/listing.md` (PR #5)
 - [ ] Upload a build to **TestFlight** and confirm it installs/runs for an external tester
 
 ## Phase B: Create the subscription product (no code)
