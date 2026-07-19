@@ -49,6 +49,7 @@ schemes:
         Musica: all
     run:
       config: Debug
+      storeKitConfiguration: Musica.storekit
     test:
       config: Debug
       targets:

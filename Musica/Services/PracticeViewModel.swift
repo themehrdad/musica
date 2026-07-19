@@ -50,6 +50,8 @@ final class PracticeViewModel {
 
     func evaluateNote(_ detected: MusicNote) {
         guard state == .listening, !isProcessing else { return }
+        guard FreeTier.canPracticeMore(completedToday: completedToday,
+                                       premium: StoreService.shared.isPremium) else { return }
         isProcessing = true
         GateLog.log("evaluate detected=\(detected.displayName) target=\(currentNote.displayName) -> \(detected.midiNumber == currentNote.midiNumber ? "CORRECT" : "WRONG")")
 

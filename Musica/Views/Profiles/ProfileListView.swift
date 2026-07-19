@@ -8,6 +8,8 @@ struct ProfileListView: View {
     @State private var profileToEdit: Profile?
     @State private var profileToDelete: Profile?
     @State private var selectedProfile: Profile?
+    @State private var showParentalGate = false
+    @State private var showPaywall = false
 
     var body: some View {
         NavigationStack {
@@ -59,7 +61,12 @@ struct ProfileListView: View {
                 Spacer()
 
                 Button {
-                    showCreateProfile = true
+                    if FreeTier.canAddProfile(existingCount: profiles.count,
+                                              premium: StoreService.shared.isPremium) {
+                        showCreateProfile = true
+                    } else {
+                        showParentalGate = true
+                    }
                 } label: {
                     Label("New Profile", systemImage: "plus.circle.fill")
                         .font(.headline)
@@ -73,6 +80,12 @@ struct ProfileListView: View {
             }
             .sheet(isPresented: $showCreateProfile) {
                 ProfileFormView()
+            }
+            .sheet(isPresented: $showParentalGate) {
+                ParentalGateView { showPaywall = true }
+            }
+            .sheet(isPresented: $showPaywall) {
+                PaywallView()
             }
             .sheet(item: $profileToEdit) { profile in
                 ProfileFormView(profileToEdit: profile)
