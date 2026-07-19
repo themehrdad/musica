@@ -61,7 +61,7 @@ final class PracticeViewModel {
             showPianoHint = false
             saveTodayProgress(noting: currentNote)
 
-            if completedToday == Config.dailyGoal {
+            if completedToday == profile.dailyGoal {
                 haptic(.success)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [weak self] in
                     UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
@@ -133,9 +133,11 @@ final class PracticeViewModel {
         let profileID = profile.persistentModelID
         if let existing = results.first(where: { $0.profile?.persistentModelID == profileID }) {
             existing.notesCompleted = completedToday
+            existing.goal = profile.dailyGoal
             existing.recordNote(note.displayName)
         } else {
-            let progress = DailyProgress(date: today, notesCompleted: completedToday, profile: profile)
+            let progress = DailyProgress(date: today, notesCompleted: completedToday,
+                                         goal: profile.dailyGoal, profile: profile)
             progress.recordNote(note.displayName)
             context.insert(progress)
         }

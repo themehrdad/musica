@@ -27,7 +27,7 @@ struct PracticeView: View {
                         }
                     }
                     Spacer()
-                    CounterView(completed: vm.completedToday, goal: Config.dailyGoal)
+                    CounterView(completed: vm.completedToday, goal: profile.dailyGoal)
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 16)

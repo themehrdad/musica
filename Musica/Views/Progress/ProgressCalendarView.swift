@@ -112,9 +112,11 @@ struct ProgressCalendarView: View {
                       spacing: 6) {
                 ForEach(Array(grid.cells.enumerated()), id: \.offset) { _, day in
                     if let day {
+                        let record = progressByDay[DailyProgress.dayString(from: day)]
                         DayCellView(
                             date: day,
-                            score: progressByDay[DailyProgress.dayString(from: day)]?.notesCompleted,
+                            score: record?.notesCompleted,
+                            goal: record?.goal,
                             isSelected: isSelected(day)
                         )
                         .onTapGesture {
@@ -141,9 +143,13 @@ struct ProgressCalendarView: View {
 struct DayCellView: View {
     let date: Date
     let score: Int?          // nil = no practice recorded
+    let goal: Int?           // the goal recorded for that day
     let isSelected: Bool
 
-    private var starred: Bool { (score ?? 0) >= Config.dailyGoal }
+    private var starred: Bool {
+        guard let score, let goal else { return false }
+        return score >= goal
+    }
     private var isToday: Bool { Calendar.current.isDateInToday(date) }
     private var isFuture: Bool { date > Date() && !isToday }
     private var dayNumber: Int { Calendar.current.component(.day, from: date) }
@@ -211,7 +217,8 @@ struct DayDetailView: View {
     let progress: DailyProgress?
 
     private var score: Int { progress?.notesCompleted ?? 0 }
-    private var starred: Bool { score >= Config.dailyGoal }
+    private var goal: Int { progress?.goal ?? Config.dailyGoal }
+    private var starred: Bool { progress != nil && score >= goal }
 
     /// Practiced notes deduplicated in first-played order, with counts.
     private var noteCounts: [(note: String, count: Int)] {
@@ -236,14 +243,14 @@ struct DayDetailView: View {
                     .foregroundStyle(.secondary)
             } else {
                 HStack(spacing: 16) {
-                    Label("\(score) notes", systemImage: "music.note")
+                    Label("\(score) of \(goal) notes", systemImage: "music.note")
                         .font(.system(.subheadline, design: .rounded, weight: .semibold))
                     if starred {
                         Label("Goal reached!", systemImage: "star.fill")
                             .font(.system(.subheadline, design: .rounded, weight: .semibold))
                             .foregroundStyle(.orange)
                     } else {
-                        Text("\(Config.dailyGoal - score) to go for a star")
+                        Text("\(goal - score) to go for a star")
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
                     }

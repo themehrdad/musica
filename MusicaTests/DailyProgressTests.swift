@@ -16,6 +16,19 @@ final class DailyProgressTests: XCTestCase {
         XCTAssertEqual(progress.practicedNotesRaw, "")
     }
 
+    // Records that predate per-profile goals must read back as the old
+    // fixed goal of 20, so their stars don't change.
+    func testGoalDefaultsToTwenty() {
+        let progress = DailyProgress(date: "2026-07-17", profile: makeProfile())
+        XCTAssertEqual(progress.goal, 20)
+    }
+
+    func testProfileDailyGoalDefaultAndClamp() {
+        XCTAssertEqual(Profile(name: "A").dailyGoal, Config.dailyGoal)
+        XCTAssertEqual(Profile(name: "B", dailyGoal: 35).dailyGoal, 35)
+        XCTAssertEqual(Profile(name: "C", dailyGoal: 0).dailyGoal, 1)
+    }
+
     func testRecordNoteAppendsInOrder() {
         let progress = DailyProgress(date: "2026-07-17", profile: makeProfile())
         progress.recordNote("C4")
@@ -63,6 +76,32 @@ final class DailyProgressTests: XCTestCase {
         XCTAssertEqual(saved.first?.date, DailyProgress.todayString())
         XCTAssertEqual(saved.first?.notesCompleted, 1)
         XCTAssertEqual(saved.first?.practicedNotes, [target.displayName])
+        XCTAssertEqual(saved.first?.goal, profile.dailyGoal)
+    }
+
+    @MainActor
+    func testGoalStampFollowsProfileSetting() throws {
+        let context = try makeContext()
+        let profile = makeProfile()
+        context.insert(profile)
+
+        let vm = PracticeViewModel(profile: profile)
+        vm.setup(context: context)
+        vm.evaluateNote(vm.currentNote)
+
+        var saved = try context.fetch(FetchDescriptor<DailyProgress>())
+        XCTAssertEqual(saved.first?.goal, 20)
+
+        // The parent raises the goal mid-day; the day's record follows the
+        // goal that applied at the last practice.
+        profile.dailyGoal = 30
+        vm.nextNote()
+        vm.evaluateNote(vm.currentNote)
+
+        saved = try context.fetch(FetchDescriptor<DailyProgress>())
+        XCTAssertEqual(saved.count, 1)
+        XCTAssertEqual(saved.first?.notesCompleted, 2)
+        XCTAssertEqual(saved.first?.goal, 30)
     }
 
     @MainActor

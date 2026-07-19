@@ -15,6 +15,7 @@ struct ProfileFormView: View {
     @State private var clefMode: ClefMode = .treble
     @State private var trebleKeys: Set<Int> = []
     @State private var bassKeys: Set<Int> = []
+    @State private var dailyGoal = Config.dailyGoal
 
     private var isEditing: Bool { profileToEdit != nil }
 
@@ -76,6 +77,25 @@ struct ProfileFormView: View {
                 }
                 .disabled(!beginnerApplies)
                 .opacity(beginnerApplies ? 1 : 0.5)
+                .padding(.horizontal, 40)
+
+                HStack {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Daily goal")
+                            .font(.body.weight(.medium))
+                        Text("Notes to practice each day")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                    Spacer()
+                    Text("\(dailyGoal)")
+                        .font(.system(.title3, design: .rounded, weight: .bold))
+                        .foregroundStyle(.purple)
+                        .contentTransition(.numericText())
+                        .animation(.spring(duration: 0.25), value: dailyGoal)
+                    Stepper("Daily goal", value: $dailyGoal, in: 5...100, step: 5)
+                        .labelsHidden()
+                }
                 .padding(.horizontal, 40)
 
                 VStack(alignment: .leading, spacing: 6) {
@@ -142,9 +162,11 @@ struct ProfileFormView: View {
                             profile.clefMode = clefMode
                             profile.trebleKeys = Array(savedTreble)
                             profile.bassKeys = Array(savedBass)
+                            profile.dailyGoal = dailyGoal
                         } else {
                             let profile = Profile(name: trimmedName, avatarData: avatarData, beginner: beginner, clefMode: clefMode,
-                                                  trebleKeys: Array(savedTreble), bassKeys: Array(savedBass))
+                                                  trebleKeys: Array(savedTreble), bassKeys: Array(savedBass),
+                                                  dailyGoal: dailyGoal)
                             context.insert(profile)
                         }
                         dismiss()
@@ -160,6 +182,7 @@ struct ProfileFormView: View {
                     clefMode = profile.clefMode
                     trebleKeys = Set(profile.trebleKeys)
                     bassKeys = Set(profile.bassKeys)
+                    dailyGoal = profile.dailyGoal
                 }
             }
         }

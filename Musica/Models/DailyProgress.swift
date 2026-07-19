@@ -9,10 +9,15 @@ final class DailyProgress {
     // Correctly played notes in practice order, comma-separated ("C4,E4,G4").
     // Empty for days recorded before note tracking existed.
     var practicedNotesRaw: String = ""
+    // The profile's daily goal as of the last practice that day. Stars are
+    // judged against the goal that applied then, not today's setting. The
+    // default doubles as history: before goals were per-profile, it was 20.
+    var goal: Int = 20
 
-    init(date: String, notesCompleted: Int = 0, profile: Profile) {
+    init(date: String, notesCompleted: Int = 0, goal: Int = 20, profile: Profile) {
         self.date = date
         self.notesCompleted = notesCompleted
+        self.goal = goal
         self.profile = profile
     }
 
