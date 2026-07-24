@@ -25,6 +25,8 @@
     <array>
         <string>UIInterfaceOrientationPortrait</string>
     </array>
+    <key>ITSAppUsesNonExemptEncryption</key>
+    <false/>
     <key>NSMicrophoneUsageDescription</key>
     <string>Musica needs microphone access to hear the notes you play on your piano.</string>
 </dict>

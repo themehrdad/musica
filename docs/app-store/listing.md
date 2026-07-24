@@ -108,7 +108,7 @@ DEBUG builds accept `-demo-screen profiles|practice|grand|progress` and
 show seeded demo data in an in-memory store (see `Musica/DemoScreens.swift`):
 
 ```
-xcrun simctl privacy <sim> grant microphone com.musica.app
-xcrun simctl launch <sim> com.musica.app -demo-screen progress
+xcrun simctl privacy <sim> grant microphone com.higgssoftware.musica
+xcrun simctl launch <sim> com.higgssoftware.musica -demo-screen progress
 xcrun simctl io <sim> screenshot progress.png
 ```

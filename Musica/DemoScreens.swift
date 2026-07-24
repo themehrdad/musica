@@ -6,7 +6,7 @@ import SwiftUI
 /// `-demo-screen <mode>` swaps the real database for an in-memory one
 /// seeded with friendly demo data and jumps straight to the target screen:
 ///
-///   xcrun simctl launch <sim> com.musica.app -demo-screen progress
+///   xcrun simctl launch <sim> com.higgssoftware.musica -demo-screen progress
 ///
 /// Modes: profiles, practice, grand, progress.
 enum DemoScreen: String {
