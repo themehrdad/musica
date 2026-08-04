@@ -17,7 +17,9 @@ enum Config {
     static let dailyGoal = 20
     static let wrongAttemptsBeforeHint = 3
     static let pitchAmplitudeThreshold: Float = 0.05
-    static let pitchStabilityFrames = 3
+    // 2 frames (~190 ms at the 93 ms tap cadence): fast enough that a quick
+    // run registers quickly, stable enough to reject transient crackles.
+    static let pitchStabilityFrames = 2
     static let trebleNoteRange: ClosedRange<Int> = 48...79          // MIDI C3–G5
     static let trebleBeginnerRange: ClosedRange<Int> = 64...77     // MIDI E4–F5 (on treble staff)
     static let bassNoteRange: ClosedRange<Int> = 36...59           // MIDI C2–B3
@@ -38,13 +40,15 @@ enum Config {
     // window duration — retune them if it changes.
     static let pianoGateEnabled = true
     static let pianoLabels: Set<String> = ["piano", "electric_piano", "keyboard_musical"]
-    static let classifierWindowSeconds = 1.0
-    static let classifierOverlapFactor = 0.75                      // result every 0.25 s
+    // Short window opens the gate faster on the first note after silence:
+    // first verdict lands at ~0.5 s instead of ~1.0 s.
+    static let classifierWindowSeconds = 0.5
+    static let classifierOverlapFactor = 0.5                       // result every 0.25 s
     static let gateOpenConfidence = 0.5
     static let gateStayOpenConfidence = 0.25
-    static let gateHitsToOpen = 2                                  // consecutive confident results to open
-    static let gateStickySeconds: TimeInterval = 4.0               // stays open this long after last confident result
-    static let pendingNoteMaxAge: TimeInterval = 2.0               // held note expires if classifier confirms later than this
+    static let gateHitsToOpen = 1                                  // one confident result opens the gate
+    static let gateStickySeconds: TimeInterval = 2.0               // stays open this long after last confident result
+    static let pendingNoteMaxAge: TimeInterval = 1.5               // held note expires if classifier confirms later than this
     static let voiceVetoConfidence = 0.6                           // speech/singing at or above this...
     static let voiceVetoPianoCeiling = 0.3                         // ...while piano below this blocks notes...
     static let voiceVetoSeconds: TimeInterval = 0.75               // ...for this long after the result

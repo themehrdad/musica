@@ -65,7 +65,7 @@ final class PracticeViewModel {
 
             if completedToday == profile.dailyGoal {
                 haptic(.success)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [weak self] in
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) { [weak self] in
                     UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                     self?.state = .goalReached
                 }
@@ -82,7 +82,7 @@ final class PracticeViewModel {
             } else if wrongAttempts >= Config.wrongAttemptsBeforeHint {
                 showNoteName = true
             }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [weak self] in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) { [weak self] in
                 self?.state = .listening
                 self?.isProcessing = false
             }
@@ -109,7 +109,7 @@ final class PracticeViewModel {
     }
 
     private func advanceAfterDelay() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) { [weak self] in
             self?.nextNote()
         }
     }
