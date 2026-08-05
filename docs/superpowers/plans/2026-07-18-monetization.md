@@ -18,23 +18,27 @@
 
 ## Phase A: Get the app onto the App Store (no code)
 
-- [ ] Sign the **Paid Applications Agreement** in App Store Connect; enter banking + tax info
+- [x] Sign the **Paid Applications Agreement** in App Store Connect; enter banking + tax info (done 2026-08-05)
 - [ ] Enroll in the **App Store Small Business Program** (15% instead of 30%)
-- [ ] Create the App Store Connect app record for `com.musica.app`
+- [x] Create the App Store Connect app record for `com.higgssoftware.musica` (adopted 2026-07-24 in commit 028ad0f; `com.musica.app` was already taken globally) — app ID `6794258266`, "Musica: Kids Learn Piano Notes"
 - [x] Host a simple **privacy policy** page ("no data collected, everything on-device") + support page — live at https://themehrdad.github.io/musica/privacy.html and https://themehrdad.github.io/musica/support.html (gh-pages branch)
 - [x] Design a proper **app icon** — kawaii piano artwork in the asset catalog (PR #5)
 - [x] Screenshots for 6.9" iPhones — four shots in `docs/app-store/screenshots/` (practice, progress calendar, grand staff, profiles) via the DEBUG `-demo-screen` mode (PR #5)
 - [x] Write the App Store description; **age rating** + **privacy nutrition label** answers drafted in `docs/app-store/listing.md` (PR #5)
-- [ ] Upload a build to **TestFlight** and confirm it installs/runs for an external tester
+- [x] Upload a build to **TestFlight** and confirm it installs/runs on a device (internal tester, 2026-08-05; external tester optional before submission)
 
 ## Phase B: Create the subscription product (no code)
 
-- [ ] Subscription group: `Musica Premium`
-- [ ] Auto-renewable product `com.musica.app.premium.monthly` — $4.99/month
-- [ ] Auto-renewable product `com.musica.app.premium.yearly` — $39.99/year (same group, so switching plans is handled by Apple automatically)
-- [ ] **Intro offer: 7 days free on both products** (this is how "try before you buy" works; no code needed)
-- [ ] Localized display names + descriptions
-- [ ] **Family Sharing: ON** (one subscription covers the whole family — parents expect this for a kids' app)
+- [x] Subscription group: `Musica Premium` (created 2026-08-05)
+- [x] Auto-renewable product `com.musica.app.premium.monthly` — $4.99/month (product IDs keep the `com.musica.app` namespace; only the app bundle ID changed)
+- [x] Auto-renewable product `com.musica.app.premium.yearly` — $39.99/year (same group, so switching plans is handled by Apple automatically)
+- [x] **Intro offer: 7 days free on both products** (this is how "try before you buy" works; no code needed) — set up 2026-08-05 as an *Introductory Offer* → Free → **1 Week**, starting 2026-08-05 with no end date, all 175 storefronts
+- [x] Localized display names + descriptions — `Premium Monthly` / `Premium Yearly` plus group name `Musica Premium`, in English (U.S.) and English (Canada) (2026-08-05)
+- [x] **Family Sharing: ON** (one subscription covers the whole family — parents expect this for a kids' app)
+
+Both products sit in Draft Submission (1) at **Ready for Review**. Apple requires the first subscription group to be submitted alongside an app version, so they go live with the 1.0 submission — nothing further to do here.
+
+Two gotchas worth remembering: a free trial is not a field, it is an **Introductory Offer** hidden behind the dropdown at the top of the Subscription Pricing page (and the duration menu offers "1 Week", never "7 days"); and once a product is added to a review submission its names and descriptions silently go read-only — remove it from the submission to edit, then add it back.
 
 ## Phase C: StoreKit 2 integration (the code)
 
