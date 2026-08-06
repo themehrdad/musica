@@ -20,3 +20,6 @@ Package.resolved
 .DS_Store
 build-sim/
 build-device/
+
+# Tooling
+.commandcode/

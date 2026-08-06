@@ -8,9 +8,11 @@ import SwiftUI
 ///
 ///   xcrun simctl launch <sim> com.higgssoftware.musica -demo-screen progress
 ///
-/// Modes: profiles, practice, grand, progress.
+/// Modes: profiles, practice, grand, progress, paywall, paywall-yearly.
+/// `paywall` shows the standard two-plan picker; `paywall-yearly` shows
+/// only the yearly plan (for the yearly product's IAP review screenshot).
 enum DemoScreen: String {
-    case profiles, practice, grand, progress
+    case profiles, practice, grand, progress, paywall, paywallYearly = "paywall-yearly"
 
     static func fromArguments() -> DemoScreen? {
         let args = ProcessInfo.processInfo.arguments
@@ -40,6 +42,10 @@ struct DemoRootView: View {
                 if let leo { PracticeView(profile: leo) }
             case .progress:
                 if let maya { ProgressCalendarView(profile: maya) }
+            case .paywall:
+                PaywallView()
+            case .paywallYearly:
+                PaywallView(singleProductID: Config.yearlyProductID)
             }
         }
         .onAppear(perform: seed)

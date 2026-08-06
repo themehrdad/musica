@@ -90,6 +90,20 @@ Questions or ideas? themehrdad@gmail.com — we read everything.
 2. `2-progress-6.9.png` — "Stars for every day the goal is reached"
 3. `3-grand-staff-6.9.png` — "Treble, bass, or the grand staff"
 4. `4-profiles-6.9.png` — "A profile for every kid"
+5. `5-paywall-6.9.png` — (IAP review screenshot, not used in the store listing)
+
+## IAP review screenshot
+
+`5-paywall-6.9.png` shows the `SubscriptionStoreView` paywall with both
+plans, each showing "1 week free", monthly selected, and the Try It Free
++ Restore buttons. Regenerate with the `-demo-screen paywall` mode; the
+`paywall-yearly` mode renders the yearly plan on its own.
+
+The same image is uploaded to *both* products under Review Information in
+App Store Connect, since it shows both plans. Note that the file is
+1206×2622 (iPhone 17 Pro), not the 1320×2868 the listing shots use — the
+IAP review screenshot has no display-size requirement, so the `-6.9` in
+its filename is a naming carryover rather than a real spec.
 
 ## App Review notes (paste when submitting)
 
@@ -104,7 +118,7 @@ Questions or ideas? themehrdad@gmail.com — we read everything.
 
 ## Regenerating screenshots
 
-DEBUG builds accept `-demo-screen profiles|practice|grand|progress` and
+DEBUG builds accept `-demo-screen profiles|practice|grand|progress|paywall|paywall-yearly` and
 show seeded demo data in an in-memory store (see `Musica/DemoScreens.swift`):
 
 ```
