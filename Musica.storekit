@@ -39,6 +39,11 @@
               "description" : "Unlimited practice for the whole family",
               "displayName" : "Premium Monthly",
               "locale" : "en_US"
+            },
+            {
+              "description" : "Unlimited practice for the whole family",
+              "displayName" : "Premium Monthly",
+              "locale" : "en_CA"
             }
           ],
           "productID" : "com.musica.app.premium.monthly",
@@ -69,6 +74,11 @@
               "description" : "Unlimited practice, best value",
               "displayName" : "Premium Yearly",
               "locale" : "en_US"
+            },
+            {
+              "description" : "Unlimited practice, best value",
+              "displayName" : "Premium Yearly",
+              "locale" : "en_CA"
             }
           ],
           "productID" : "com.musica.app.premium.yearly",
