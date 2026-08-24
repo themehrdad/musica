@@ -2,10 +2,11 @@ import Foundation
 
 enum Config {
     // MARK: Premium subscription
-    // Master switch for the freemium gates. OFF until the App Store products
-    // are live — with it off the whole app behaves exactly as before, so
-    // family devices lose nothing when this build ships.
-    static let premiumGatingEnabled = false
+    // Master switch for the freemium gates. ON as of build 4 — App Review
+    // couldn't locate the in-app purchases with it off (guideline 2.1(b),
+    // 2026-08-23), since every paywall entry point is unreachable while
+    // FreeTier.limited() short-circuits to false.
+    static let premiumGatingEnabled = true
     static let monthlyProductID = "com.musica.app.premium.monthly"
     static let yearlyProductID = "com.musica.app.premium.yearly"
     static let premiumProductIDs = [monthlyProductID, yearlyProductID]
