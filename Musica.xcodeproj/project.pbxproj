@@ -25,6 +25,8 @@
 		71CC1C96965F71C37E2EC6CD /* MusicNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9EF232BE335815432AA91B /* MusicNote.swift */; };
 		71FAC29C490DD3E83E5EBFDD /* FreeTier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61ABD11D3BA146584224D7B1 /* FreeTier.swift */; };
 		775D8A0D8DCD98F2DA15431E /* SoundpipeAudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9359448668D66A5A0E5630E2 /* SoundpipeAudioKit */; };
+		7A51E00000000000000000A1 /* RatingPrompter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A51E00000000000000000A2 /* RatingPrompter.swift */; };
+		7A51E00000000000000000B1 /* RatingPrompterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A51E00000000000000000B2 /* RatingPrompterTests.swift */; };
 		7DFDEE6C5B8592F66A8BAC0C /* ProgressCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACD53C011652001977B35CC /* ProgressCalendarView.swift */; };
 		7FEB50AABFBA973B815A078D /* ProfileHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE3FAF917DB17FBC87DF556 /* ProfileHomeView.swift */; };
 		800978C25ADA096F2B49A610 /* MusicaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5732B7AB308699D428C573 /* MusicaTests.swift */; };
@@ -89,6 +91,8 @@
 		6933B8FE1A601A7FEC5708AD /* FreeTierTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeTierTests.swift; sourceTree = "<group>"; };
 		72599C6792DA9B32252C288E /* PremiumLocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumLocks.swift; sourceTree = "<group>"; };
 		75487075333F190A1F70F209 /* DailyProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyProgress.swift; sourceTree = "<group>"; };
+		7A51E00000000000000000A2 /* RatingPrompter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingPrompter.swift; sourceTree = "<group>"; };
+		7A51E00000000000000000B2 /* RatingPrompterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingPrompterTests.swift; sourceTree = "<group>"; };
 		7C5A21ED19382C188930239E /* DemoScreens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoScreens.swift; sourceTree = "<group>"; };
 		A6E8E2ADEB7619B0A3B8F9E3 /* MonthGridTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthGridTests.swift; sourceTree = "<group>"; };
 		B7C346E91BD9C10856A2B219 /* DailyProgressTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyProgressTests.swift; sourceTree = "<group>"; };
@@ -198,6 +202,7 @@
 				F23FCC119CD1E9456F16C06E /* MusicNoteTests.swift */,
 				B9AB6B61878361D61657D602 /* PianoGateTests.swift */,
 				575443303B3A96C63465B831 /* PracticeDeckTests.swift */,
+				7A51E00000000000000000B2 /* RatingPrompterTests.swift */,
 			);
 			path = MusicaTests;
 			sourceTree = "<group>";
@@ -231,6 +236,7 @@
 				1A6AF936B4630DD338F99769 /* PianoGate.swift */,
 				23136E0258314060734C43E8 /* PianoSoundClassifier.swift */,
 				401D55854170AC7BB387B422 /* PracticeViewModel.swift */,
+				7A51E00000000000000000A2 /* RatingPrompter.swift */,
 				30B32F90181D15EE634B8DDC /* StoreService.swift */,
 			);
 			path = Services;
@@ -387,6 +393,7 @@
 				7FEB50AABFBA973B815A078D /* ProfileHomeView.swift in Sources */,
 				EBDE7BF138DBE78731FAEA2A /* ProfileListView.swift in Sources */,
 				7DFDEE6C5B8592F66A8BAC0C /* ProgressCalendarView.swift in Sources */,
+				7A51E00000000000000000A1 /* RatingPrompter.swift in Sources */,
 				B19E81444F0F11DA0CDBAFD3 /* SadFaceView.swift in Sources */,
 				CD6E707DB7F1F82055D6D4A9 /* StaffView.swift in Sources */,
 				18717B21539C1191522A15D1 /* StoreService.swift in Sources */,
@@ -404,6 +411,7 @@
 				800978C25ADA096F2B49A610 /* MusicaTests.swift in Sources */,
 				563CB4CD393E68CD15140309 /* PianoGateTests.swift in Sources */,
 				AC64482648CC293471364376 /* PracticeDeckTests.swift in Sources */,
+				7A51E00000000000000000B1 /* RatingPrompterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

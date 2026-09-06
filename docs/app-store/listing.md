@@ -1,5 +1,10 @@
 # Musica — App Store Listing
 
+**Version 1.1:** Use [the release package](release-1.1/README.md) and
+[metadata.json](release-1.1/metadata.json) for the current submission.
+The text below is retained as the version 1.0 reference, including its
+old five-note allowance and original screenshots.
+
 Everything to paste into App Store Connect when the app record exists.
 Screenshots (6.9", 1320×2868) live in `screenshots/` beside this file.
 

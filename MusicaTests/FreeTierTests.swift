@@ -3,7 +3,7 @@ import XCTest
 
 final class FreeTierTests: XCTestCase {
 
-    // With the master switch off (today's shipping state) nothing is limited.
+    // Debug's master switch can bypass gates; Release keeps them enabled.
     func testGatingDisabledAllowsEverything() {
         XCTAssertFalse(FreeTier.limited(premium: false, gatingEnabled: false))
         XCTAssertTrue(FreeTier.canAddProfile(existingCount: 99, premium: false, gatingEnabled: false))
@@ -35,9 +35,15 @@ final class FreeTierTests: XCTestCase {
                                                 premium: false, gatingEnabled: true))
     }
 
-    // Free-tier caps must stay below the default daily goal so the crown
-    // celebration can't fire for capped users mid-session.
-    func testFreeLimitBelowDailyGoal() {
-        XCTAssertLessThan(Config.freeDailyNoteLimit, Config.dailyGoal)
+    func testFreeLearnerCanCompleteDefaultGoal() {
+        XCTAssertEqual(Config.freeDailyNoteLimit, 20)
+        XCTAssertGreaterThanOrEqual(Config.freeDailyNoteLimit, Config.dailyGoal)
+    }
+
+    func testHigherGoalIsReachableAfterPremiumExpires() {
+        XCTAssertEqual(FreeTier.practiceGoal(requested: 50, premium: false, gatingEnabled: true), 20)
+        XCTAssertEqual(FreeTier.practiceGoal(requested: 50, premium: true, gatingEnabled: true), 50)
+        XCTAssertEqual(FreeTier.practiceGoal(requested: 5, premium: false, gatingEnabled: true), 5)
+        XCTAssertEqual(FreeTier.practiceGoal(requested: 50, premium: false, gatingEnabled: false), 50)
     }
 }

@@ -12,7 +12,7 @@ import SwiftUI
 /// `paywall` shows the standard two-plan picker; `paywall-yearly` shows
 /// only the yearly plan (for the yearly product's IAP review screenshot).
 enum DemoScreen: String {
-    case profiles, practice, grand, progress, paywall, paywallYearly = "paywall-yearly"
+    case profiles, practice, hints, goal, grand, progress, paywall, paywallYearly = "paywall-yearly"
 
     static func fromArguments() -> DemoScreen? {
         let args = ProcessInfo.processInfo.arguments
@@ -36,8 +36,10 @@ struct DemoRootView: View {
             switch mode {
             case .profiles:
                 ProfileListView()
-            case .practice:
+            case .practice, .hints:
                 if let maya { PracticeView(profile: maya) }
+            case .goal:
+                if let maya { PracticeView(profile: maya, gatingEnabled: true) }
             case .grand:
                 if let leo { PracticeView(profile: leo) }
             case .progress:

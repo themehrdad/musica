@@ -22,7 +22,7 @@ targets:
       base:
         INFOPLIST_FILE: Musica/Info.plist
         PRODUCT_BUNDLE_IDENTIFIER: com.higgssoftware.musica
-        TARGETED_DEVICE_FAMILY: "1,2"
+        TARGETED_DEVICE_FAMILY: "1"
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
     dependencies:
       - package: AudioKit

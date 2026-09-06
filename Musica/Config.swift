@@ -2,16 +2,19 @@ import Foundation
 
 enum Config {
     // MARK: Premium subscription
-    // Master switch for the freemium gates. ON as of build 4 — App Review
-    // couldn't locate the in-app purchases with it off (guideline 2.1(b),
-    // 2026-08-23), since every paywall entry point is unreachable while
-    // FreeTier.limited() short-circuits to false.
+    // Master switch for the freemium gates. Release/App Store stays ON so
+    // Review can reach every paywall (guideline 2.1(b), 2026-08-23). Debug
+    // installs on a personal device skip the subscription entirely.
+#if DEBUG
+    static let premiumGatingEnabled = false
+#else
     static let premiumGatingEnabled = true
+#endif
     static let monthlyProductID = "com.musica.app.premium.monthly"
     static let yearlyProductID = "com.musica.app.premium.yearly"
     static let premiumProductIDs = [monthlyProductID, yearlyProductID]
     static let freeProfileLimit = 1
-    static let freeDailyNoteLimit = 5
+    static let freeDailyNoteLimit = 20
     static let privacyPolicyURL = URL(string: "https://themehrdad.github.io/musica/privacy.html")!
     static let termsOfUseURL = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!
 

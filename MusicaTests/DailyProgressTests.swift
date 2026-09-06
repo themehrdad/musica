@@ -80,12 +80,12 @@ final class DailyProgressTests: XCTestCase {
     }
 
     @MainActor
-    func testGoalStampFollowsProfileSetting() throws {
+    func testGoalStampFollowsPremiumProfileSetting() throws {
         let context = try makeContext()
         let profile = makeProfile()
         context.insert(profile)
 
-        let vm = PracticeViewModel(profile: profile)
+        let vm = PracticeViewModel(profile: profile, gatingEnabled: true, premiumStatus: { true })
         vm.setup(context: context)
         vm.evaluateNote(vm.currentNote)
 

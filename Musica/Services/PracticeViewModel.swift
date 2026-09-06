@@ -18,6 +18,8 @@ final class PracticeViewModel {
     var wrongAttempts: Int = 0
     var showNoteName: Bool = false
     var showPianoHint: Bool = false
+    // Set at the crown moment when the learner has earned a rating ask.
+    var shouldRequestReview = false
 
     var currentNote: MusicNote { currentCard.note }
 
@@ -27,9 +29,29 @@ final class PracticeViewModel {
     private var modelContext: ModelContext?
     private var isProcessing = false
     private let deck: PracticeDeck
+    private let premiumStatus: () -> Bool
+    private let gatingEnabled: Bool
 
-    init(profile: Profile) {
+    var dailyGoal: Int {
+        FreeTier.practiceGoal(requested: profile.dailyGoal, premium: premiumStatus(),
+                              gatingEnabled: gatingEnabled)
+    }
+
+    var canPracticeMore: Bool {
+        FreeTier.canPracticeMore(completedToday: completedToday, premium: premiumStatus(),
+                                 gatingEnabled: gatingEnabled)
+    }
+
+    /// Let feedback and the crown finish before presenting the free limit.
+    var showFreeLimit: Bool {
+        !canPracticeMore && state != .correct && state != .goalReached
+    }
+
+    init(profile: Profile, gatingEnabled: Bool = Config.premiumGatingEnabled,
+         premiumStatus: @escaping () -> Bool = { StoreService.shared.isPremium }) {
         self.profile = profile
+        self.gatingEnabled = gatingEnabled
+        self.premiumStatus = premiumStatus
         let deck = PracticeDeck(profile: profile)
         self.deck = deck
         self.currentCard = deck.draw()
@@ -50,8 +72,7 @@ final class PracticeViewModel {
 
     func evaluateNote(_ detected: MusicNote) {
         guard state == .listening, !isProcessing else { return }
-        guard FreeTier.canPracticeMore(completedToday: completedToday,
-                                       premium: StoreService.shared.isPremium) else { return }
+        guard canPracticeMore else { return }
         isProcessing = true
         GateLog.log("evaluate detected=\(detected.displayName) target=\(currentNote.displayName) -> \(detected.midiNumber == currentNote.midiNumber ? "CORRECT" : "WRONG")")
 
@@ -63,8 +84,14 @@ final class PracticeViewModel {
             showPianoHint = false
             saveTodayProgress(noting: currentNote)
 
-            if completedToday == profile.dailyGoal {
+            if completedToday == dailyGoal {
                 haptic(.success)
+                // Today's save above just became a goal day, so this is
+                // where the third one is detected — right at the crown.
+                if let context = modelContext {
+                    shouldRequestReview = RatingPrompter.goalDaysReached(profile: profile, context: context)
+                        >= RatingPrompter.goalDaysBeforeAsking
+                }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) { [weak self] in
                     UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                     self?.state = .goalReached
@@ -135,11 +162,11 @@ final class PracticeViewModel {
         let profileID = profile.persistentModelID
         if let existing = results.first(where: { $0.profile?.persistentModelID == profileID }) {
             existing.notesCompleted = completedToday
-            existing.goal = profile.dailyGoal
+            existing.goal = dailyGoal
             existing.recordNote(note.displayName)
         } else {
             let progress = DailyProgress(date: today, notesCompleted: completedToday,
-                                         goal: profile.dailyGoal, profile: profile)
+                                         goal: dailyGoal, profile: profile)
             progress.recordNote(note.displayName)
             context.insert(progress)
         }

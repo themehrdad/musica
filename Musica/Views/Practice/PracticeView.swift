@@ -1,15 +1,19 @@
 import SwiftUI
 import SwiftData
+import StoreKit
 
 struct PracticeView: View {
     let profile: Profile
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var context
+    @Environment(\.requestReview) private var requestReview
+    @AppStorage("rating.lastRequestedAt") private var lastReviewRequest = 0.0
+    @State private var audioError: String?
     @State private var vm: PracticeViewModel
 
-    init(profile: Profile) {
+    init(profile: Profile, gatingEnabled: Bool = Config.premiumGatingEnabled) {
         self.profile = profile
-        self._vm = State(initialValue: PracticeViewModel(profile: profile))
+        self._vm = State(initialValue: PracticeViewModel(profile: profile, gatingEnabled: gatingEnabled))
     }
 
     var body: some View {
@@ -27,12 +31,18 @@ struct PracticeView: View {
                         }
                     }
                     Spacer()
-                    CounterView(completed: vm.completedToday, goal: profile.dailyGoal)
+                    CounterView(completed: vm.completedToday, goal: vm.dailyGoal)
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 16)
 
                 Spacer()
+
+                Text("Play this note on your piano")
+                    .font(.system(.title3, design: .rounded, weight: .semibold))
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal)
+                    .padding(.bottom, 24)
 
                 // Staff
                 StaffView(note: vm.currentNote, clefMode: profile.clefMode,
@@ -62,7 +72,7 @@ struct PracticeView: View {
                     if vm.audioService.isListening {
                         vm.stopListening()
                     } else {
-                        try? vm.startListening()
+                        startListening()
                     }
                 } label: {
                     MicIndicatorView(
@@ -70,7 +80,15 @@ struct PracticeView: View {
                         isListening: vm.audioService.isListening
                     )
                 }
-                .padding(.bottom, 40)
+                .accessibilityLabel(vm.audioService.isListening ? "Pause microphone" : "Start microphone")
+                .padding(.bottom, 12)
+
+                Text("Place your iPhone near the piano.\nFor a digital piano, turn its speakers on.")
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 24)
+                    .padding(.bottom, 24)
             }
 
             // Animation overlays
@@ -90,9 +108,8 @@ struct PracticeView: View {
                     .transition(.scale.combined(with: .opacity))
             }
 
-            if !FreeTier.canPracticeMore(completedToday: vm.completedToday,
-                                         premium: StoreService.shared.isPremium) {
-                FreeLimitReachedView()
+            if vm.showFreeLimit {
+                FreeLimitReachedView(onDone: { dismiss() })
                     .transition(.opacity)
             }
         }
@@ -100,7 +117,20 @@ struct PracticeView: View {
         .background(Color(.systemBackground))
         .onAppear {
             vm.setup(context: context)
-            try? vm.startListening()
+#if DEBUG
+            if let demo = DemoScreen.fromArguments() {
+                vm.currentCard = PracticeCard(note: MusicNote(midiNumber: 64)!, staff: .treble)
+                vm.audioService.isListening = true
+                if demo == .hints {
+                    vm.showNoteName = true
+                    vm.showPianoHint = true
+                } else if demo == .goal {
+                    vm.completedToday = 20
+                    vm.state = .goalReached
+                }
+            }
+#endif
+            startListening()
         }
         .onDisappear {
             vm.stopListening()
@@ -110,6 +140,29 @@ struct PracticeView: View {
                 vm.evaluateNote(note)
             }
         }
+        .task(id: vm.state) {
+            guard vm.state == .goalReached, vm.shouldRequestReview else { return }
+            // Cancel when the learner continues or leaves the screen.
+            do { try await Task.sleep(for: .seconds(3)) } catch { return }
+            let previous = lastReviewRequest == 0 ? nil : Date(timeIntervalSince1970: lastReviewRequest)
+            guard RatingPrompter.mayRequest(lastRequested: previous) else { return }
+            lastReviewRequest = Date.now.timeIntervalSince1970
+            requestReview()
+        }
+        .alert("Microphone unavailable", isPresented: Binding(
+            get: { audioError != nil }, set: { if !$0 { audioError = nil } }
+        )) {
+            Button("OK", role: .cancel) { audioError = nil }
+        } message: {
+            Text("Allow microphone access for Musica in Settings, then tap the microphone to try again.")
+        }
+    }
+
+    private func startListening() {
+#if DEBUG
+        if DemoScreen.fromArguments() != nil { return }
+#endif
+        do { try vm.startListening() } catch { audioError = error.localizedDescription }
     }
 
     private var goalReachedOverlay: some View {
@@ -125,11 +178,21 @@ struct PracticeView: View {
                 Text("\(vm.completedToday) notes practiced")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
-                Button("Keep Practicing") {
-                    vm.continueAfterGoal()
+                Button(vm.canPracticeMore ? "Keep Practicing" : "Done for today") {
+                    if vm.canPracticeMore {
+                        vm.continueAfterGoal()
+                    } else {
+                        dismiss()
+                    }
                 }
                 .buttonStyle(.borderedProminent)
                 .controlSize(.large)
+                if !vm.canPracticeMore {
+                    Text("Your \(Config.freeDailyNoteLimit) free notes will be ready again tomorrow.")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.center)
+                }
             }
             .padding(40)
             .background(.ultraThinMaterial)

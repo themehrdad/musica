@@ -20,6 +20,9 @@ struct ProfileFormView: View {
     @State private var showPaywall = false
 
     private var isEditing: Bool { profileToEdit != nil }
+    private var maximumDailyGoal: Int {
+        FreeTier.limited(premium: StoreService.shared.isPremium) ? Config.freeDailyNoteLimit : 100
+    }
 
     // Grand-staff mode uses tighter key bounds (see Config).
     private var shownTrebleRange: ClosedRange<Int> {
@@ -85,7 +88,8 @@ struct ProfileFormView: View {
                     VStack(alignment: .leading, spacing: 2) {
                         Text("Daily goal")
                             .font(.body.weight(.medium))
-                        Text("Notes to practice each day")
+                        Text(FreeTier.limited(premium: StoreService.shared.isPremium)
+                             ? "Up to \(Config.freeDailyNoteLimit) notes a day, free" : "Notes to practice each day")
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }
@@ -95,7 +99,7 @@ struct ProfileFormView: View {
                         .foregroundStyle(.purple)
                         .contentTransition(.numericText())
                         .animation(.spring(duration: 0.25), value: dailyGoal)
-                    Stepper("Daily goal", value: $dailyGoal, in: 5...100, step: 5)
+                    Stepper("Daily goal", value: $dailyGoal, in: 5...maximumDailyGoal, step: 5)
                         .labelsHidden()
                 }
                 .padding(.horizontal, 40)
@@ -202,8 +206,11 @@ struct ProfileFormView: View {
                     clefMode = profile.clefMode
                     trebleKeys = Set(profile.trebleKeys)
                     bassKeys = Set(profile.bassKeys)
-                    dailyGoal = profile.dailyGoal
+                    dailyGoal = min(profile.dailyGoal, maximumDailyGoal)
                 }
+            }
+            .onChange(of: maximumDailyGoal) { _, maximum in
+                dailyGoal = min(dailyGoal, maximum)
             }
         }
     }

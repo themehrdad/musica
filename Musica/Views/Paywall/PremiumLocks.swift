@@ -2,6 +2,7 @@ import SwiftUI
 
 /// Overlay for the practice screen when the free daily notes are used up.
 struct FreeLimitReachedView: View {
+    var onDone: () -> Void
     @State private var showGate = false
     @State private var showPaywall = false
 
@@ -27,6 +28,8 @@ struct FreeLimitReachedView: View {
                         .background(.purple.opacity(0.15))
                         .clipShape(Capsule())
                 }
+                Button("Done for today", action: onDone)
+                    .font(.headline)
             }
             .padding(32)
             .background(.ultraThinMaterial)
