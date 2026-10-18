@@ -112,7 +112,7 @@ final class RatingPrompterTests: XCTestCase {
         XCTAssertEqual(RatingPrompter.goalDaysReached(profile: profile, context: context), 0)
     }
 
-    // MARK: - The ask fires on the third goal day
+    // MARK: - The ask fires on the first goal day
 
     // Low goal keeps every note under the free daily limit, so nothing is
     // gated. Returns the view model that crossed the goal — the thing
@@ -143,15 +143,29 @@ final class RatingPrompterTests: XCTestCase {
     }
 
     @MainActor
-    func testSecondGoalDayDoesNotRequestReview() throws {
+    func testFirstGoalDayRequestsReview() throws {
         let context = try makeContext()
         let profile = try makeProfile(in: context, dailyGoal: 3)
-        try recordDay(-1, completed: 4, goal: 3, profile: profile, in: context)
 
         let vm = try reachGoal(profile: profile, in: context)
 
         XCTAssertEqual(vm.completedToday, 3)
-        XCTAssertEqual(RatingPrompter.goalDaysReached(profile: profile, context: context), 2)
+        XCTAssertEqual(RatingPrompter.goalDaysReached(profile: profile, context: context), 1)
+        XCTAssertTrue(vm.shouldRequestReview)
+    }
+
+    @MainActor
+    func testNoReviewBeforeTheGoalIsReached() throws {
+        let context = try makeContext()
+        let profile = try makeProfile(in: context, dailyGoal: 3)
+        let vm = PracticeViewModel(profile: profile)
+        vm.setup(context: context)
+        for _ in 0..<(profile.dailyGoal - 1) {
+            vm.evaluateNote(vm.currentNote)
+            vm.nextNote()
+        }
+
+        XCTAssertEqual(vm.completedToday, 2)
         XCTAssertFalse(vm.shouldRequestReview)
     }
 }

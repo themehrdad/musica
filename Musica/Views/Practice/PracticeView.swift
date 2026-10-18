@@ -154,7 +154,7 @@ struct PracticeView: View {
         )) {
             Button("OK", role: .cancel) { audioError = nil }
         } message: {
-            Text("Allow microphone access for Musica in Settings, then tap the microphone to try again.")
+            Text("Allow microphone access for Note School in Settings, then tap the microphone to try again.")
         }
     }
 

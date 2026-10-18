@@ -9,7 +9,7 @@ import SwiftData
 /// whole device, even when siblings switch profiles. Apple decides
 /// whether the system dialog actually appears.
 enum RatingPrompter {
-    static let goalDaysBeforeAsking = 3
+    static let goalDaysBeforeAsking = 1
     static let requestInterval: TimeInterval = 120 * 24 * 60 * 60
 
     static func mayRequest(lastRequested: Date?, now: Date = .now) -> Bool {

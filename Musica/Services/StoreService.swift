@@ -1,7 +1,7 @@
 import Foundation
 import StoreKit
 
-/// StoreKit 2 wrapper: knows whether the family has Musica Premium and
+/// StoreKit 2 wrapper: knows whether the family has Note School Premium and
 /// keeps that answer fresh across purchases, renewals, and refunds.
 /// Purchases themselves run through SubscriptionStoreView in PaywallView.
 @MainActor

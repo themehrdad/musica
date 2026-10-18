@@ -87,7 +87,7 @@ final class PracticeViewModel {
             if completedToday == dailyGoal {
                 haptic(.success)
                 // Today's save above just became a goal day, so this is
-                // where the third one is detected — right at the crown.
+                // where the qualifying one is detected — right at the crown.
                 if let context = modelContext {
                     shouldRequestReview = RatingPrompter.goalDaysReached(profile: profile, context: context)
                         >= RatingPrompter.goalDaysBeforeAsking

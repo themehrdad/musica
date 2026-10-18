@@ -14,7 +14,7 @@ struct ProfileListView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 32) {
-                Text("Musica")
+                Text("Note School")
                     .font(.system(size: 42, weight: .bold, design: .rounded))
                     .foregroundStyle(
                         LinearGradient(colors: [.purple, .blue],

@@ -43,7 +43,7 @@ struct PaywallView: View {
         VStack(spacing: 12) {
             Text("🎹⭐️")
                 .font(.system(size: 52))
-            Text("Musica Premium")
+            Text("Note School Premium")
                 .font(.system(.title, design: .rounded, weight: .bold))
                 .foregroundStyle(
                     LinearGradient(colors: [.purple, .blue],

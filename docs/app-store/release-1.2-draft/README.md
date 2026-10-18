@@ -41,6 +41,26 @@ The output is six opaque 1320 × 2868 JPEGs in `screenshots/`. They reuse the 1.
 
 These are candidate terms only. Real query data from the US Search Match test (if approved) should be used to finalize them.
 
+## Name (decided by Mehrdad, Oct 17, 2026)
+
+**Note School: Piano Reading** (26 characters). The home-screen name would be **Note School** (11).
+
+- Why: the Oct 13–17 US Search Match test matched "Musica" to music-player searches, including "music" in Russian and Arabic ([check-in](../campaigns/2026-10-17-us-check-in.md)). The new name is piano-first.
+- Rejected options: "Simple Piano School" is too close to Simply Piano, which has about 858k ratings. "Piano School" is already used by another app and overpromises full lessons.
+- Avoid "Kids" in the name; it was removed on purpose in PR #10.
+- Apple confirms the name is free only when it's entered in App Store Connect.
+- The subtitle must not repeat name words (note, school, piano, reading). "Sight reading for kids" repeats "reading". Candidates to finalize after the Oct 19 data: "Treble & bass for kids", "Sight-read treble & bass".
+- In-app "Musica" branding to rename in the 1.2 build: the profiles screen title, "Musica Premium" on the paywall and in the description, the screenshot header in `render_screens.swift`, and the bundle display name. The bundle ID `com.higgssoftware.musica` and the subscription product IDs stay the same.
+
+## Icon (candidate)
+
+- [`icon/AppIcon-note-school.png`](icon/AppIcon-note-school.png): 1024 × 1024 PNG with no alpha. Made with Gemini on Oct 17, 2026; the 2048 px source is kept as `icon/gemini-source-2048.jpeg`.
+- [`icon/icon-compare.png`](icon/icon-compare.png) compares it with the current icon at 180/120/60/40 px.
+- The current icon is busy, has a baked-in rounded border, and shows a cartoon piano rather than note reading. At 60 px it blurs.
+- Gemini prompt (first pass): "Create an image: a 1024x1024 iOS app icon for a children's piano note-reading app called "Note School". One bold, simple central symbol: a large, friendly quarter note (music note) wearing a small graduation cap, resting on five clean staff lines, with a short row of piano keys along the bottom edge. Flat vector style with soft gradients and thick, rounded shapes that stay readable at 60x60 pixels. Palette: deep blue background gradient (#2B59C3 to #4A7BE0), white staff lines and white piano keys with black keys, a sunny yellow note with a coral-orange cap. Centered composition with generous padding. Full-bleed square background edge to edge: no rounded corners, no border, no frame, no outer shadow, no text, no letters, no watermark."
+- Follow-up prompt: "keep everything the same but fix the staff: exactly five single, evenly spaced white staff lines, with no duplicate or shadow lines…" The first pass had doubled staff lines.
+- To adopt it, replace `Musica/Assets.xcassets/AppIcon.appiconset/AppIcon.png` in the 1.2 build.
+
 ## Constraints
 
 - The subtitle, keywords and screenshots can only change with a **new app version**. That means a new build plus App Review. Promotional text can change any time, but it does not show in search results.
