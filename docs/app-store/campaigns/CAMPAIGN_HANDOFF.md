@@ -4,7 +4,7 @@ Prepared October 12, 2026 · All campaign dates/times are America/Vancouver unle
 
 ## Update — October 12, 2026 final audit
 
-The read-only final audit has been completed: see [2026-10-12-final-audit.md](2026-10-12-final-audit.md). In short, the campaign ended on schedule with no edits after October 3. Over the whole run (Sep 24–Oct 6) it produced 1 impression, 1 tap, CAD 1.24 spend and 0 installs, all on Oct 4 from [music note trainer]. The four raised keywords got nothing. The Oct 11 invoice was CAD 0.00. Separately, organic US search impressions jumped from Oct 8. The sections below are the pre-audit record.
+The read-only final audit has been completed: see [2026-10-12-final-audit.md](2026-10-12-final-audit.md). In short, the campaign ended on schedule with no edits after October 3. Over the whole run (Sep 24–Oct 6) it produced 1 impression, 1 tap, CAD 1.24 spend and 0 installs, all on Oct 4 from [music note trainer]. The four raised keywords got nothing. The Oct 11 invoice was CAD 0.00. Separately, organic US search impressions jumped from Oct 8. A US Search Match discovery campaign (2144875951) was then approved and created to run Oct 13–19: see [2026-10-12-us-search-match-launch.md](2026-10-12-us-search-match-launch.md). The draft 1.2 listing is in [../release-1.2-draft/](../release-1.2-draft/README.md). The sections below are the pre-audit record.
 
 ## Read this first
 
