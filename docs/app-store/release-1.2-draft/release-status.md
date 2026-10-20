@@ -1,5 +1,7 @@
 # Note School 1.2 release record
 
+**Approved and live on October 18, 2026, about 14:00 PDT** (the public App Store shows version 1.2 released 2026-10-18T21:00:14Z in both the US and Canada, with the new name and icon). Checked on Oct 20 using the public lookup API.
+
 Submitted to App Review on **October 17, 2026, about 21:15 PDT**, at Mehrdad's request ("lock it in … submit it too"). App Store Connect then showed **1.2 Waiting for Review** and "1 Item Submitted".
 
 - App: Apple ID 6794258266, bundle `com.higgssoftware.musica` (unchanged).
