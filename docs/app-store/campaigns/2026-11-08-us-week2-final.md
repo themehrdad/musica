@@ -66,3 +66,7 @@ Pause paid ads before they start charging the card. Spend the next 1–2 weeks o
 Restart ads (CAD 8/day, CAD 7 target CPA) once there's a sign that downloads turn into practice and trials. The remaining ~CAD 25 of credit could fund about 3 more days if wanted.
 
 ![Week 2 search terms](evidence/2026-11-08-week2-search-terms.jpg)
+
+## Decision — Nov 8, 2026
+
+Mehrdad chose to **keep ads off for now**. No campaign is running; all three campaigns show "end date reached". The roughly CAD 25 of promo credit is left unused. Focus moves to first ratings and to checking whether new users actually practice. Any restart needs a fresh go-ahead on budget and duration.
